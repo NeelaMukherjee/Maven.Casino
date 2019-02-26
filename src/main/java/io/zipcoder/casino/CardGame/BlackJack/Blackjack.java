@@ -32,10 +32,7 @@ public class Blackjack extends CardGame implements GamblingGame {
     }
 
     public double payout() {
-
         return this.pot * 2;
-
-
     }
 
 
@@ -76,16 +73,7 @@ public class Blackjack extends CardGame implements GamblingGame {
 
         else {
             int choice = console.getIntegerInput(menu());
-
         }
-
-
-
-
-
-
-
-
     }
 
     public boolean validateBet(){
@@ -115,7 +103,18 @@ public class Blackjack extends CardGame implements GamblingGame {
     }
 
     public String menu() {
-        return "**Enter 1 to Hit\n**Enter 2 to Stand \n**Enter 3 to Double Down\n**Enter 4 to Split\n**Enter 5 to Walk away\n\nMake a Move! ";
+        return "\n**Enter 1 to Hit\n**Enter 2 to Stand \n**Enter 3 to Double Down\n**Enter 4 to Split\n**Enter 5 to Walk away\n\nMake a Move!";
+    }
 
+    public BlackjackActions inputToEnum(int input){
+        BlackjackActions result = BlackjackActions.STAND;
+
+        for (BlackjackActions actions: BlackjackActions.values()) {
+            if(input == actions.getMenuOption())
+            {
+                result = actions;
+            }
+        }
+        return result;
     }
 }
