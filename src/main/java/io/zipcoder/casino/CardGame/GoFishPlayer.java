@@ -21,9 +21,6 @@ public class GoFishPlayer {
 
 
 
-    boolean playersHandNotEmpty;
-
-
     // Constructor
 
     public GoFishPlayer(Player player) {
@@ -237,14 +234,6 @@ public class GoFishPlayer {
         return hasFourOfAKind;
     }
 
-    public void setHand(Hand hand) {
-        this.hand = hand;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public void setPlayer(Player player) {
         this.player = player;
     }
@@ -253,19 +242,9 @@ public class GoFishPlayer {
         this.counter4 = counter4;
     }
 
-    public boolean isPlayersHandNotEmpty (){
+    public boolean playerHasCards(){
 
-        if(getHand().getSize() > 0){
-
-            return true;
-        }
-
-        else {
-
-            return false;
-        }
+        return getHand().getSize() > 0;
 
     }
-
-
 }

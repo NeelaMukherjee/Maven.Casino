@@ -43,6 +43,8 @@ public class GoFish extends CardGame {
 
     public void play() {
 
+        console.println(goFishTimeString());
+        input = console.getStringInput("Type 'deal' to play!");
         startGame();
         checkExit();
 
@@ -125,15 +127,10 @@ public class GoFish extends CardGame {
 
 
     public Card getLastCard(GoFishPlayer player) {
-
         ArrayList<Card> cards = player.getHand().showMyCards();
-
         Card lastCard = player.getHand().showMyCards().get(cards.size() - 1);
-
         return lastCard;
     }
-
-
 
 
     public String getCardOptions() {
@@ -170,9 +167,6 @@ public class GoFish extends CardGame {
     // cHeck if the initial dealt cards already contains any 4 of a kind  if yes updates the player's scores.
 
     public void startGame() {
-
-        input = console.getStringInput("Welcome to Go Fish!  Type 'deal' to play!");
-
         if (input.equals("deal")) {
             goFishPlayer.getHand().addCardsToHand(deck.deal(7));
             dealer.getHand().addCardsToHand(deck.deal(7));
@@ -275,11 +269,10 @@ public class GoFish extends CardGame {
         int sizeOfDealersHand = dealer.getHand().getSize();
         Face dealersRequestedCard;
         Random random = new Random();
-        if(sizeOfDealersHand >0) {
+        if (sizeOfDealersHand > 0) {
             Integer indexOfCard = random.nextInt(sizeOfDealersHand);
             dealersRequestedCard = dealer.getHand().showMyCards().get(indexOfCard).getFace();
-        }
-        else{
+        } else {
             dealersRequestedCard = Face.ACE;
         }
 
@@ -347,17 +340,17 @@ public class GoFish extends CardGame {
 
 
     public boolean handHasCards(GoFishPlayer goFishPlayer) {
-        return goFishPlayer.isPlayersHandNotEmpty();
+        return goFishPlayer.playerHasCards();
     }
 
 
     public void drawNewCardsIfHandIsEmpty(GoFishPlayer goFishPlayer) {
         if (!handHasCards(goFishPlayer)) {
             if (deck.deckSize() > 7) {
-                deck.deal(7);
+                goFishPlayer.getHand().addCardsToHand(deck.deal(7));
                 console.println("Hand is empty.  Dealing 7 more cards.");
             } else if (!deckIsEmpty) {
-                deck.deal(deck.deckSize() - 1);
+                goFishPlayer.getHand().addCardsToHand(deck.deal(deck.deckSize() - 1));
                 deckIsEmpty = true;
                 console.println("Hand is empty.  Dealing the rest of the cards in the deck.");
             } else {
@@ -367,13 +360,13 @@ public class GoFish extends CardGame {
         }
     }
 
-    public void checkIfOutOfCards(){
+    public void checkIfOutOfCards() {
         drawNewCardsIfHandIsEmpty(goFishPlayer);
         drawNewCardsIfHandIsEmpty(dealer);
     }
 
-    public void checkIfDeckIsEmpty(){
-        if (deckIsEmpty(deck)){
+    public void checkIfDeckIsEmpty() {
+        if (deckIsEmpty(deck)) {
             playerDrawing = false;
             dealerDrawing = false;
             console.println("The deck is empty so there are no cards to draw.");
@@ -381,24 +374,23 @@ public class GoFish extends CardGame {
     }
 
 
-    public void endOfGameMessage(GoFishPlayer goFishPlayer){
+    public void endOfGameMessage(GoFishPlayer goFishPlayer) {
         setAllBooleansFalse();
         if (goFishPlayer.equals(dealer)) {
             console.println("The deck is empty and the dealer is out of cards!");
         }
-        if (goFishPlayer.equals(this.goFishPlayer)){
+        if (goFishPlayer.equals(this.goFishPlayer)) {
             console.println("The deck is empty and you are out of cards!");
         }
         console.println("Your score is %d.  The dealer's score is %d.", playersScoreCounter, dealersScoreCounter);
-        if(playersScoreCounter > dealersScoreCounter){
+        if (playersScoreCounter > dealersScoreCounter) {
             console.println("You win!!!!! You are a Go Fish wizard!");
-        }
-        else{
+        } else {
             console.println("You lose!  Better luck next time!");
         }
     }
 
-    public void setAllBooleansFalse(){
+    public void setAllBooleansFalse() {
         playing = false;
         playerAskingForCard = false;
         playerDrawing = false;
@@ -411,8 +403,8 @@ public class GoFish extends CardGame {
         requestedCard = null;
     }
 
-    public void checkExit(){
-        if("exit".equals(input)){
+    public void checkExit() {
+        if ("exit".equals(input)) {
             walkAway();
         }
     }
@@ -424,22 +416,29 @@ public class GoFish extends CardGame {
     }
 
 
+    public String goFishTimeString(){
+        return "\n" +
+                "               O  o\n" +
+                "          _\\_   o\n" +
+                "       \\\\/  o\\ .\n" +
+                "       //\\___=\n" +
+                "          ''\n" +
+                "____ ____    ____ _ ____ _  _    ___ _ _  _ ____   /\n" +
+                "| __ |  |    |___ | [__  |__|     |  | |\\/| |___  / \n" +
+                "|__] |__|    |    | ___] |  |     |  | |  | |___ .  \n" +
+                "                                                    \n" +
+                "          _____\n" +
+                "         |A .  | _____\n" +
+                "         | /.\\ ||A ^  | _____\n" +
+                "         |(_._)|| / \\ ||A _  | _____\n" +
+                "         |  |  || \\ / || ( ) ||A_ _ |\n" +
+                "         |____V||  .  ||(_'_)||( v )|\n" +
+                "                |____V||  |  || \\ / |\n" +
+                "                       |____V||  .  |\n" +
+                "                              |____V|";
 
-    public void setGoFishPlayer(GoFishPlayer goFishPlayer) {
-        this.goFishPlayer = goFishPlayer;
     }
 
-    public void setDealer(GoFishPlayer dealer) {
-        this.dealer = dealer;
-    }
-
-    public void setPlayersScoreCounter(int playersScoreCounter) {
-        this.playersScoreCounter = playersScoreCounter;
-    }
-
-    public void setDealersScoreCounter(int dealersScoreCounter) {
-        this.dealersScoreCounter = dealersScoreCounter;
-    }
 
     public Deck getDeck() {
         return deck;
@@ -449,24 +448,8 @@ public class GoFish extends CardGame {
         this.deck = deck;
     }
 
-    public Console getConsole() {
-        return console;
-    }
-
-    public void setConsole(Console console) {
-        this.console = console;
-    }
-
     public boolean isPlaying() {
         return playing;
-    }
-
-    public void setPlaying(boolean playing) {
-        this.playing = playing;
-    }
-
-    public String getInput() {
-        return input;
     }
 
     public void setInput(String input) {
@@ -475,10 +458,6 @@ public class GoFish extends CardGame {
 
     public boolean isPlayerAskingForCard() {
         return playerAskingForCard;
-    }
-
-    public void setPlayerAskingForCard(boolean playerAskingForCard) {
-        this.playerAskingForCard = playerAskingForCard;
     }
 
     public boolean isPlayerDrawing() {
@@ -493,9 +472,6 @@ public class GoFish extends CardGame {
         return playersTurn;
     }
 
-    public void setPlayersTurn(boolean playersTurn) {
-        this.playersTurn = playersTurn;
-    }
 
     public boolean isNewTurn() {
         return newTurn;
@@ -509,39 +485,28 @@ public class GoFish extends CardGame {
         return dealersTurn;
     }
 
-    public void setDealersTurn(boolean dealersTurn) {
-        this.dealersTurn = dealersTurn;
-    }
 
     public boolean isDealerAskingForCard() {
         return dealerAskingForCard;
     }
 
-    public void setDealerAskingForCard(boolean dealerAskingForCard) {
-        this.dealerAskingForCard = dealerAskingForCard;
-    }
 
     public boolean isGivingDealerCard() {
         return givingDealerCard;
     }
 
-    public void setGivingDealerCard(boolean givingDealerCard) {
-        this.givingDealerCard = givingDealerCard;
-    }
 
     public boolean isDealerDrawing() {
         return dealerDrawing;
     }
 
-    public void setDealerDrawing(boolean dealerDrawing) {
-        this.dealerDrawing = dealerDrawing;
-    }
 
     public Face getRequestedCard() {
         return requestedCard;
     }
 
-    public void setRequestedCard(Face requestedCard) {
-        this.requestedCard = requestedCard;
+
+    public void setDealerAskingForCard(boolean dealerAskingForCard) {
+        this.dealerAskingForCard = dealerAskingForCard;
     }
 }
