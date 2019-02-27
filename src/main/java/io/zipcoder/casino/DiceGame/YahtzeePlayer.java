@@ -60,12 +60,9 @@ public class YahtzeePlayer {
         return returnedDice;
     }
 
+
     public void removeSameDice(ArrayList<Dice> diceListToRemoveFrom, ArrayList<Dice> diceList){
-        for (Dice die : diceList){
-            if(diceListToRemoveFrom.contains(die)){
-                diceListToRemoveFrom.remove(die);
-            }
-        }
+       diceListToRemoveFrom.removeAll(diceList);
     }
 
 
