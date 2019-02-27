@@ -148,11 +148,6 @@ public class BlackjackTest {
     }
 
     @Test
-    public void split() {
-    }
-
-
-    @Test
     public void canDoubleDown() {
         //Given
         Blackjack blackjack = new Blackjack(player);
@@ -163,5 +158,31 @@ public class BlackjackTest {
 
         //Then
         Assert.assertFalse(actual);
+    }
+
+    @Test
+    public void testWalkAway() {
+        //Given
+        Blackjack blackjack = new Blackjack(player);
+        blackjack.walkAway = false;
+
+        //When
+        blackjack.walkAway();
+
+        //Then
+        Assert.assertTrue(blackjack.walkAway);
+    }
+
+    @Test
+    public void testMessage() {
+        //Given
+        Blackjack blackjack = new Blackjack(player);
+        String expected = "\n**Enter 1 to Hit\n**Enter 2 to Stand \n**Enter 3 to Double Down\n**Enter 4 to Split\n**Enter 5 to Walk away\n\nMake a Move!";
+
+        //When
+        String actual = blackjack.menu();
+
+        //Then
+        Assert.assertEquals(expected, actual);
     }
 }

@@ -13,7 +13,7 @@ public class Blackjack extends CardGame implements GamblingGame {
     private Player player;
     private Deck deck;
     private double bet;
-    private boolean walkAway;
+    protected boolean walkAway;
     private Console console = Console.getInstance();
 
 
@@ -214,6 +214,7 @@ public class Blackjack extends CardGame implements GamblingGame {
     }
 
     public void split() {
+        stand();
     }
 
     public BlackjackPlayer getBlackjackPlayer(){
