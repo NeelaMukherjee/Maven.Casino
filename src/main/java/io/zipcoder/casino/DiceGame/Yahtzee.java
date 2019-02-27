@@ -2,6 +2,7 @@ package io.zipcoder.casino.DiceGame;
 
 import io.zipcoder.casino.Player;
 import io.zipcoder.casino.utilities.Console;
+import io.zipcoder.casino.utilities.DisplayGraphics;
 
 import java.util.*;
 
@@ -13,6 +14,7 @@ public class Yahtzee extends DiceGame {
     private ArrayList<Dice> rolledDice;
     private boolean playing = false;
     Console console = Console.getInstance();
+    DisplayGraphics displayGraphics = new DisplayGraphics();
     String input = "";
 
 
@@ -26,41 +28,12 @@ public class Yahtzee extends DiceGame {
 
     @Override
     public void play() {
-
-        console.println(welcomeToYahtzeeString());
+        console.println(DisplayGraphics.welcomeToYahtzeeString());
         input = console.getStringInput("\nHello %s!  Welcome to Yahtzee!  Type 'roll' to begin!", yahtzeePlayer.getName());
         playing = true;
 
         while (playing) {
-
-            if (input.toLowerCase().equals("roll")) {
-                roll();
-            }
-
-            if (input.toLowerCase().equals("save")) {
-                saveDice();
-            }
-
-            if (input.toLowerCase().equals("return")) {
-                returnDice();
-            }
-
-            if (input.toLowerCase().equals("scorecard")) {
-                showScorecard();
-            }
-
-            if (input.toLowerCase().equals("mark")) {
-                input = console.getStringInput(categoryString());
-
-                if (input.toLowerCase().equals("back")) {
-                    back();
-                } else {
-                    markScore();
-                }
-            }
-            if (input.toLowerCase().equals("exit")) {
-                walkAway();
-            }
+            YahtzeeAction.valueOf(input.toUpperCase()).perform(this);
             invalidInputCheck();
         }
     }
@@ -632,13 +605,6 @@ public class Yahtzee extends DiceGame {
         return false;
     }
 
-    public String welcomeToYahtzeeString() {
-        return "\n⚀ ⚁ ⚂ ⚃ ⚄ ⚅ ⚀ ⚁ ⚂ ⚃ ⚄ ⚅ ⚀ ⚁ ⚂ ⚃ ⚄ ⚅ ⚀ ⚁ ⚂ ⚃ ⚄ ⚅ ⚀ ⚁ ⚂ ⚃ ⚄ ⚅ ⚀ ⚁ ⚂ ⚃ ⚄ ⚅ ⚀ ⚁ ⚂ ⚃ ⚄ ⚅\n" +
-                "      ___       __   __         ___    ___  __                   ___ __  ___  ___   /\n" +
-                "|  | |__  |    /  ` /  \\  |\\/| |__      |  /  \\    \\ /  /\\  |__|  |   / |__  |__   / \n" +
-                "|/\\| |___ |___ \\__, \\__/  |  | |___     |  \\__/     |  /~~\\ |  |  |  /_ |___ |___ .  \n\n" +
-                "⚀ ⚁ ⚂ ⚃ ⚄ ⚅ ⚀ ⚁ ⚂ ⚃ ⚄ ⚅ ⚀ ⚁ ⚂ ⚃ ⚄ ⚅ ⚀ ⚁ ⚂ ⚃ ⚄ ⚅ ⚀ ⚁ ⚂ ⚃ ⚄ ⚅ ⚀ ⚁ ⚂ ⚃ ⚄ ⚅ ⚀ ⚁ ⚂ ⚃ ⚄ ⚅\n";
-    }
 
 
     public String allOptions() {
@@ -802,6 +768,17 @@ public class Yahtzee extends DiceGame {
         ((ArrayList<String>) allCategories).addAll(getLowerSectionCategories());
 
         return allCategories;
+    }
+
+    public void checkForBack(){
+        input = console.getStringInput(categoryString());
+        if (input.toLowerCase().equals("back")) {
+            back();
+
+
+        } else {
+            markScore();
+        }
     }
 }
 

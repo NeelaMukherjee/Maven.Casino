@@ -6,6 +6,7 @@ import io.zipcoder.casino.CardGame.GoFish;
 import io.zipcoder.casino.DiceGame.Craps;
 import io.zipcoder.casino.DiceGame.Yahtzee;
 import io.zipcoder.casino.utilities.Console;
+import io.zipcoder.casino.utilities.DisplayGraphics;
 
 public class Casino {
     private static Player player;
@@ -36,19 +37,7 @@ public class Casino {
         Console console = Console.getInstance();
         boolean running = true;
 
-        console.println("                                                           \n" +
-                "⚀ ⚁ ⚂ ⚃ ⚄ ⚅ ⚀ ⚁ ⚂ ⚃ ⚄ ⚅ ⚀ ⚁ ⚂ ⚃ ⚄ ⚅ ⚀ ⚁ ⚂ ⚃ ⚄ ⚅ ⚀ ⚁ ⚂ ⚃ ⚄ ⚅ ⚀ ⚁ ⚂ ⚃ ⚄ ⚅ ⚀ ⚁\n" +
-                "⚅ ♠ ♣ ♥ ♦ ♠ ♣ ♥ ♦ ♠ ♣ ♥ ♦ ♠ ♣ ♥ ♦ ♠ ♣ ♥ ♦ ♠ ♣ ♥ ♦ ♠ ♣ ♥ ♦ ♠ ♣ ♥ ♦ ♠ ♣ ♥ ♦ ⚂\n" +
-                "⚄ ♦                                                                     ♠ ⚃\n" +
-                "⚃ ♥  ♠---.             .--♥        ♦        .--♠                        ♣ ⚄\n" +
-                "⚂ ♣     /   ♣         :            |       :               ♣            ♥ ⚅\n" +
-                "⚁ ♠    /    .  ♦,-.   |    .-.  .-.| .-.   |    .-.♦ .--♥  .  .--. .-.  ♦ ⚀\n" +
-                "⚀ ♦   /     |  |   )  :   (   )(   |(.-'   :   (   ) `--.  |  |  |(   ) ♠ ⚁\n" +
-                "⚅ ♥  '---♥-' `-|`-'    `--♥`-'  `-'`♠`--♦   `--♣`-'`-♣--'-' `-♠  `♥`-'  ♣ ⚂\n" +
-                "⚄ ♣            |                                                        ♥ ⚃\n" +
-                "⚃ ♠            ♥                                                        ♦ ⚄\n" +
-                "⚂ ♦ ♠ ♣ ♥ ♦ ♠ ♣ ♥ ♦ ♠ ♣ ♥ ♦ ♠ ♣ ♥ ♦ ♠ ♣ ♥ ♦ ♠ ♣ ♥ ♦ ♠ ♣ ♥ ♦ ♠ ♣ ♥ ♦ ♠ ♣ ♠ ⚅\n" +
-                "⚁ ⚀ ⚅ ⚄ ⚃ ⚂ ⚁ ⚀ ⚅ ⚄ ⚃ ⚂ ⚁ ⚀ ⚅ ⚄ ⚃ ⚂ ⚁ ⚀ ⚅ ⚄ ⚃ ⚂ ⚁ ⚀ ⚅ ⚄ ⚃ ⚂ ⚁ ⚀ ⚅ ⚄ ⚃ ⚂ ⚁ ⚀\n");
+        console.println(DisplayGraphics.zipCodeCasinoString());
 
         String name = console.getStringInput("Welcome to the Zip Code Casino!  What is your name?");
         Double wallet = console.getDoubleInput("\nThanks for playing, %s!  How much money will you be gambling?", name);
