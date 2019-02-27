@@ -227,11 +227,7 @@ public class Yahtzee extends DiceGame {
                 hasThreeCount = true;
             }
         }
-        if (hasTwoCount && hasThreeCount) {
-            return true;
-        } else {
-            return false;
-        }
+        return (hasTwoCount && hasThreeCount);
     }
 
 
@@ -359,19 +355,7 @@ public class Yahtzee extends DiceGame {
     public Integer[] countDice(ArrayList<Dice> dice) {
         Integer[] diceCounter = {0, 0, 0, 0, 0, 0};
         for (Dice die : dice) {
-            if (die.getValue() == 1) {
-                diceCounter[0]++;
-            } else if (die.getValue() == 2) {
-                diceCounter[1]++;
-            } else if (die.getValue() == 3) {
-                diceCounter[2]++;
-            } else if (die.getValue() == 4) {
-                diceCounter[3]++;
-            } else if (die.getValue() == 5) {
-                diceCounter[4]++;
-            } else if (die.getValue() == 6) {
-                diceCounter[5]++;
-            }
+            diceCounter[die.getValue() - 1]++;
         }
         return diceCounter;
     }
