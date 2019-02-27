@@ -74,26 +74,7 @@ public class Craps extends DiceGame implements GamblingGame {
                 "Type 'hardway' to place a hardway bet. \n" +
                 "Type roll to roll the dice. \n";
 
-
-        System.out.println(" ___       __   _______   ___       ________  ________  _____ ______   _______           _________  ________     \n" +
-                "|\\  \\     |\\  \\|\\  ___ \\ |\\  \\     |\\   ____\\|\\   __  \\|\\   _ \\  _   \\|\\  ___ \\         |\\___   ___\\\\   __  \\    \n" +
-                "\\ \\  \\    \\ \\  \\ \\   __/|\\ \\  \\    \\ \\  \\___|\\ \\  \\|\\  \\ \\  \\\\\\__\\ \\  \\ \\   __/|        \\|___ \\  \\_\\ \\  \\|\\  \\   \n" +
-                " \\ \\  \\  __\\ \\  \\ \\  \\_|/_\\ \\  \\    \\ \\  \\    \\ \\  \\\\\\  \\ \\  \\\\|__| \\  \\ \\  \\_|/__           \\ \\  \\ \\ \\  \\\\\\  \\  \n" +
-                "  \\ \\  \\|\\__\\_\\  \\ \\  \\_|\\ \\ \\  \\____\\ \\  \\____\\ \\  \\\\\\  \\ \\  \\    \\ \\  \\ \\  \\_|\\ \\           \\ \\  \\ \\ \\  \\\\\\  \\ \n" +
-                "   \\ \\____________\\ \\_______\\ \\_______\\ \\_______\\ \\_______\\ \\__\\    \\ \\__\\ \\_______\\           \\ \\__\\ \\ \\_______\\\n" +
-                "    \\|____________|\\|_______|\\|_______|\\|_______|\\|_______|\\|__|     \\|__|\\|_______|            \\|__|  \\|_______|\n" +
-                "                                                                                                                 \n" +
-                "                                                                                                                 \n" +
-                "                                                                                                                 \n" +
-                " ________  ________  ________  ________  ________                                                                \n" +
-                "|\\   ____\\|\\   __  \\|\\   __  \\|\\   __  \\|\\   ____\\                                                               \n" +
-                "\\ \\  \\___|\\ \\  \\|\\  \\ \\  \\|\\  \\ \\  \\|\\  \\ \\  \\___|_                                                              \n" +
-                " \\ \\  \\    \\ \\   _  _\\ \\   __  \\ \\   ____\\ \\_____  \\                                                             \n" +
-                "  \\ \\  \\____\\ \\  \\\\  \\\\ \\  \\ \\  \\ \\  \\___|\\|____|\\  \\                                                            \n" +
-                "   \\ \\_______\\ \\__\\\\ _\\\\ \\__\\ \\__\\ \\__\\     ____\\_\\  \\                                                           \n" +
-                "    \\|_______|\\|__|\\|__|\\|__|\\|__|\\|__|    |\\_________\\                                                          \n" +
-                "                                           \\|_________|   ");
-
+        
         while (!startPromt) {
             input = crapsConsole.getStringInput("\nHello %s!  Welcome to Craps!  Type 'Start' to begin!", crapsPlayer.getName());
 
@@ -186,17 +167,7 @@ public class Craps extends DiceGame implements GamblingGame {
         crapsPlayer.bet(amount);
         passLineOddsPot += amount;
     }
-//
-//    public void comeLineBet(Double amount) {
-//        crapsPlayer.bet(amount);
-//        comeLinePot += amount;
-//    }
-//
-//    public void comeLineOddsBet(Double amount) {
-//        crapsPlayer.bet(amount);
-//        comeLineOddsPot += amount;
-//    }
-//
+
     public void hardWayBet(Double amount) {
         crapsPlayer.bet(amount);
         hardWaysPot += amount;
