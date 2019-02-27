@@ -1,5 +1,6 @@
-package io.zipcoder.casino.DiceGame;
+package io.zipcoder.casino.DiceGame.Yahtzee;
 
+import io.zipcoder.casino.DiceGame.Dice;
 import io.zipcoder.casino.Player;
 
 

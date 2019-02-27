@@ -4,7 +4,7 @@ package io.zipcoder.casino;
 import io.zipcoder.casino.CardGame.BlackJack.Blackjack;
 import io.zipcoder.casino.CardGame.GoFish;
 import io.zipcoder.casino.DiceGame.Craps;
-import io.zipcoder.casino.DiceGame.Yahtzee;
+import io.zipcoder.casino.DiceGame.Yahtzee.Yahtzee;
 import io.zipcoder.casino.utilities.Console;
 import io.zipcoder.casino.utilities.DisplayGraphics;
 

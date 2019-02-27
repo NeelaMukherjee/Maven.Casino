@@ -21,7 +21,7 @@ public class Dice {
         return value;
     }
 
-    int rollDice(){
+    public int rollDice(){
         Random random = new Random();
         return random.nextInt(6) + 1;
     }
