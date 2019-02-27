@@ -937,5 +937,15 @@ public class Yahtzee extends DiceGame {
             input = console.getStringInput("Invalid input.  " + allOptions());
         }
     }
+
+    public boolean isPlaying() {
+        return playing;
+    }
+
+    public void setPlaying(boolean playing) {
+        this.playing = playing;
+    }
+
+
 }
 
