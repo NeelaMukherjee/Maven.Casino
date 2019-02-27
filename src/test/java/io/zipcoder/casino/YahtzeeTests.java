@@ -266,8 +266,8 @@ public class YahtzeeTests {
         int expectedScore2 = 0;
 
         // When
-        int actualScore1 = yahtzee.scoreAces(diceWith2Aces);
-        int actualScore2 = yahtzee.scoreAces(diceWith0Aces);
+        int actualScore1 = yahtzee.scoreUpperSection(diceWith2Aces, 1);
+        int actualScore2 = yahtzee.scoreUpperSection(diceWith0Aces, 1);
 
         // Then
         Assert.assertEquals(expectedScore1, actualScore1);
@@ -298,8 +298,8 @@ public class YahtzeeTests {
         int expectedScore2 = 0;
 
         // When
-        int actualScore1 = yahtzee.scoreTwos(diceWith4Twos);
-        int actualScore2 = yahtzee.scoreTwos(diceWith0Twos);
+        int actualScore1 = yahtzee.scoreUpperSection(diceWith4Twos, 2);
+        int actualScore2 = yahtzee.scoreUpperSection(diceWith0Twos, 2);
 
         // Then
         Assert.assertEquals(expectedScore1, actualScore1);
@@ -330,8 +330,8 @@ public class YahtzeeTests {
         int expectedScore2 = 0;
 
         // When
-        int actualScore1 = yahtzee.scoreThrees(diceWith3Threes);
-        int actualScore2 = yahtzee.scoreThrees(diceWith0Threes);
+        int actualScore1 = yahtzee.scoreUpperSection(diceWith3Threes, 3);
+        int actualScore2 = yahtzee.scoreUpperSection(diceWith0Threes, 3);
 
         // Then
         Assert.assertEquals(expectedScore1, actualScore1);
@@ -362,8 +362,8 @@ public class YahtzeeTests {
         int expectedScore2 = 0;
 
         // When
-        int actualScore1 = yahtzee.scoreFours(diceWith4Fours);
-        int actualScore2 = yahtzee.scoreFours(diceWith0Fours);
+        int actualScore1 = yahtzee.scoreUpperSection(diceWith4Fours, 4);
+        int actualScore2 = yahtzee.scoreUpperSection(diceWith0Fours, 4);
 
         // Then
         Assert.assertEquals(expectedScore1, actualScore1);
@@ -394,8 +394,8 @@ public class YahtzeeTests {
         int expectedScore2 = 0;
 
         // When
-        int actualScore1 = yahtzee.scoreFives(diceWith3Fives);
-        int actualScore2 = yahtzee.scoreFives(diceWith0Fives);
+        int actualScore1 = yahtzee.scoreUpperSection(diceWith3Fives, 5);
+        int actualScore2 = yahtzee.scoreUpperSection(diceWith0Fives, 5);
 
         // Then
         Assert.assertEquals(expectedScore1, actualScore1);
@@ -426,8 +426,8 @@ public class YahtzeeTests {
         int expectedScore2 = 0;
 
         // When
-        int actualScore1 = yahtzee.scoreSixes(diceWith4Sixes);
-        int actualScore2 = yahtzee.scoreSixes(diceWith0Sixes);
+        int actualScore1 = yahtzee.scoreUpperSection(diceWith4Sixes, 6);
+        int actualScore2 = yahtzee.scoreUpperSection(diceWith0Sixes, 6);
 
         // Then
         Assert.assertEquals(expectedScore1, actualScore1);

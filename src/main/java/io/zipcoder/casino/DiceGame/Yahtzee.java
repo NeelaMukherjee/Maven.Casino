@@ -90,27 +90,27 @@ public class Yahtzee extends DiceGame {
 
         switch (categoryToScore) {
             case "aces":
-                score = scoreAces(allDice);
+                score = scoreUpperSection(allDice, 1);
                 break;
 
             case "twos":
-                score = scoreTwos(allDice);
+                score = scoreUpperSection(allDice, 2);
                 break;
 
             case "threes":
-                score = scoreThrees(allDice);
+                score = scoreUpperSection(allDice, 3);
                 break;
 
             case "fours":
-                score = scoreFours(allDice);
+                score = scoreUpperSection(allDice, 4);
                 break;
 
             case "fives":
-                score = scoreFives(allDice);
+                score = scoreUpperSection(allDice, 5);
                 break;
 
             case "sixes":
-                score = scoreSixes(allDice);
+                score = scoreUpperSection(allDice, 6);
                 break;
 
             case "3 of a kind":
@@ -147,62 +147,11 @@ public class Yahtzee extends DiceGame {
         return score;
     }
 
-
-    public int scoreAces(ArrayList<Dice> allDice) {
+    public int scoreUpperSection(ArrayList<Dice> allDice, int value){
         int score = 0;
-        for (Dice die : allDice) {
-            if (die.getValue() == 1) {
-                score += 1;
-            }
-        }
-        return score;
-    }
-
-    public int scoreTwos(ArrayList<Dice> allDice) {
-        int score = 0;
-        for (Dice die : allDice) {
-            if (die.getValue() == 2) {
-                score += 2;
-            }
-        }
-        return score;
-    }
-
-    public int scoreThrees(ArrayList<Dice> allDice) {
-        int score = 0;
-        for (Dice die : allDice) {
-            if (die.getValue() == 3) {
-                score += 3;
-            }
-        }
-        return score;
-    }
-
-    public int scoreFours(ArrayList<Dice> allDice) {
-        int score = 0;
-        for (Dice die : allDice) {
-            if (die.getValue() == 4) {
-                score += 4;
-            }
-        }
-        return score;
-    }
-
-    public int scoreFives(ArrayList<Dice> allDice) {
-        int score = 0;
-        for (Dice die : allDice) {
-            if (die.getValue() == 5) {
-                score += 5;
-            }
-        }
-        return score;
-    }
-
-    public int scoreSixes(ArrayList<Dice> allDice) {
-        int score = 0;
-        for (Dice die : allDice) {
-            if (die.getValue() == 6) {
-                score += 6;
+        for (Dice die : allDice){
+            if (die.getValue() == value){
+                score += value;
             }
         }
         return score;
@@ -386,26 +335,21 @@ public class Yahtzee extends DiceGame {
         return getLowerSectionTotal() + getUpperSectionTotal() + upperSectionBonus();
     }
 
-
     public YahtzeePlayer getYahtzeePlayer() {
         return this.yahtzeePlayer;
     }
-
 
     public TreeMap<String, Integer> getScoreCard() {
         return this.scoreCard;
     }
 
-
     public ArrayList<Dice> getSavedDice() {
         return this.savedDice;
     }
 
-
     public int getScore() {
         return score;
     }
-
 
     public ArrayList<Dice> getRolledDice() {
         return rolledDice;
@@ -875,7 +819,5 @@ public class Yahtzee extends DiceGame {
 
         return allCategories;
     }
-
-
 }
 
