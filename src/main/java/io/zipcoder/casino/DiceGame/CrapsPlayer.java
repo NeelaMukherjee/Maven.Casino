@@ -2,6 +2,7 @@ package io.zipcoder.casino.DiceGame;
 
 import io.zipcoder.casino.GamblingPlayer;
 import io.zipcoder.casino.Player;
+import io.zipcoder.casino.utilities.Console;
 
 import java.util.ArrayList;
 
@@ -9,6 +10,7 @@ public class CrapsPlayer implements GamblingPlayer {
     private String name;
     private double wallet;
     private Player player;
+    Console crapPlayerConsole = Console.getInstance();
 
 
     public CrapsPlayer(Player player) {
@@ -17,6 +19,9 @@ public class CrapsPlayer implements GamblingPlayer {
     }
 
     public void bet(double amount) {
+        while (this.wallet < amount){
+            amount = crapPlayerConsole.getDoubleInput("\nPlease enter an amount of money less than or equal to your wallet\n" + "You have " + this.wallet + " available");
+        }
         this.wallet = wallet - amount;
     }
 

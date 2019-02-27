@@ -16,6 +16,7 @@ public class Craps extends DiceGame implements GamblingGame {
     private ArrayList<Dice> rolledDice;
     private Integer summedRoll;
     private Boolean pointOn;
+    private Boolean playing;
 
     private int pointNumber;
     private int comePointNumber;
@@ -33,6 +34,7 @@ public class Craps extends DiceGame implements GamblingGame {
     ArrayList<Integer> pointNumbers = new ArrayList<Integer>();
     ArrayList<Integer> winningPointLineNumbers = new ArrayList<Integer>();
     ArrayList<Integer> losingPointNumbers = new ArrayList<Integer>();
+    ArrayList<Integer> hardwayNumberArray = new ArrayList<>();
 
 
     public Craps(Player player) {
@@ -47,12 +49,13 @@ public class Craps extends DiceGame implements GamblingGame {
         Collections.addAll(pointNumbers, 4, 5, 6, 8, 9, 10);
         Collections.addAll(winningPointLineNumbers, 7, 11);
         Collections.addAll(losingPointNumbers, 2, 3, 12);
+        Collections.addAll(hardwayNumberArray, 4,6,8,10);
     }
 
 
 
     public void play() {
-        boolean playing = false;
+        playing = false;
         pointOn = false;
         boolean comeLine = false;
         boolean startPromt = false;
@@ -71,6 +74,26 @@ public class Craps extends DiceGame implements GamblingGame {
                 "Type 'hardway' to place a hardway bet. \n" +
                 "Type roll to roll the dice. \n";
 
+
+        System.out.println(" ___       __   _______   ___       ________  ________  _____ ______   _______           _________  ________     \n" +
+                "|\\  \\     |\\  \\|\\  ___ \\ |\\  \\     |\\   ____\\|\\   __  \\|\\   _ \\  _   \\|\\  ___ \\         |\\___   ___\\\\   __  \\    \n" +
+                "\\ \\  \\    \\ \\  \\ \\   __/|\\ \\  \\    \\ \\  \\___|\\ \\  \\|\\  \\ \\  \\\\\\__\\ \\  \\ \\   __/|        \\|___ \\  \\_\\ \\  \\|\\  \\   \n" +
+                " \\ \\  \\  __\\ \\  \\ \\  \\_|/_\\ \\  \\    \\ \\  \\    \\ \\  \\\\\\  \\ \\  \\\\|__| \\  \\ \\  \\_|/__           \\ \\  \\ \\ \\  \\\\\\  \\  \n" +
+                "  \\ \\  \\|\\__\\_\\  \\ \\  \\_|\\ \\ \\  \\____\\ \\  \\____\\ \\  \\\\\\  \\ \\  \\    \\ \\  \\ \\  \\_|\\ \\           \\ \\  \\ \\ \\  \\\\\\  \\ \n" +
+                "   \\ \\____________\\ \\_______\\ \\_______\\ \\_______\\ \\_______\\ \\__\\    \\ \\__\\ \\_______\\           \\ \\__\\ \\ \\_______\\\n" +
+                "    \\|____________|\\|_______|\\|_______|\\|_______|\\|_______|\\|__|     \\|__|\\|_______|            \\|__|  \\|_______|\n" +
+                "                                                                                                                 \n" +
+                "                                                                                                                 \n" +
+                "                                                                                                                 \n" +
+                " ________  ________  ________  ________  ________                                                                \n" +
+                "|\\   ____\\|\\   __  \\|\\   __  \\|\\   __  \\|\\   ____\\                                                               \n" +
+                "\\ \\  \\___|\\ \\  \\|\\  \\ \\  \\|\\  \\ \\  \\|\\  \\ \\  \\___|_                                                              \n" +
+                " \\ \\  \\    \\ \\   _  _\\ \\   __  \\ \\   ____\\ \\_____  \\                                                             \n" +
+                "  \\ \\  \\____\\ \\  \\\\  \\\\ \\  \\ \\  \\ \\  \\___|\\|____|\\  \\                                                            \n" +
+                "   \\ \\_______\\ \\__\\\\ _\\\\ \\__\\ \\__\\ \\__\\     ____\\_\\  \\                                                           \n" +
+                "    \\|_______|\\|__|\\|__|\\|__|\\|__|\\|__|    |\\_________\\                                                          \n" +
+                "                                           \\|_________|   ");
+
         while (!startPromt) {
             input = crapsConsole.getStringInput("\nHello %s!  Welcome to Craps!  Type 'Start' to begin!", crapsPlayer.getName());
 
@@ -84,6 +107,7 @@ public class Craps extends DiceGame implements GamblingGame {
         while (playing) {
 
             if (!pointOn && !comeLine) {
+
 
                 while (!roll) {
                     roll = askForRoll(roll, phase1Options);
@@ -103,8 +127,9 @@ public class Craps extends DiceGame implements GamblingGame {
 
             if (pointOn && !comeLine) {
                 while (pointOn) {
-                    askForRoll(roll, phase2Options);
-
+                    while(!roll) {
+                        roll = askForRoll(roll, phase2Options);
+                    }
                     rolledDice = rollDice();
                     summedRoll = rollDiceSum(rolledDice);
 
@@ -116,8 +141,10 @@ public class Craps extends DiceGame implements GamblingGame {
                     summedRoll = 0;
                     printWallet();
                     roll = false;
+
                 }
             }
+            walkAway();
         }
     }
 
@@ -125,16 +152,23 @@ public class Craps extends DiceGame implements GamblingGame {
         String input;
         input = crapsConsole.getStringInput(phase1Options).toUpperCase().replaceAll(" ", "_");
 
-        if (input.equals("ROLL")) {
+        if((!input.equals("PASS_LINE_ODDS")) && !input.equals("FIELD") && !input.equals("HARDWAY") && !input.equals("PASS_LINE") && !input.equals("ROLL")){
+            System.out.println("Sorry, invalid input\n");
+        } else if(input.equals("ROLL")){
             roll = true;
         } else {
             CrapsActions.valueOf(input).perform(this, askForBet());
         }
+
         return roll;
     }
 
 
     public void walkAway() {
+        String input = crapsConsole.getStringInput("Enter 'E' to exit or press 'ENTER' to continue").toLowerCase();
+        if (input.equals("e")){
+            playing = false;
+        }
 
     }
 
@@ -166,7 +200,14 @@ public class Craps extends DiceGame implements GamblingGame {
     public void hardWayBet(Double amount) {
         crapsPlayer.bet(amount);
         hardWaysPot += amount;
-        hardwayNumber = crapsConsole.getIntegerInput("Please enter the number of the Hardway roll you would like to bet on");
+        Integer input = 0;
+        while(!hardwayNumberArray.contains(input)){
+            input = crapsConsole.getIntegerInput("Please enter one of the following numbers (4), (6), (8), (10) to bet on");
+            if(!hardwayNumberArray.contains(input)){
+                System.out.println("Please enter a valid number \n");
+            }
+        }
+        hardwayNumber = input;
     }
 
     public void fieldBet(Double amount) {
@@ -210,7 +251,7 @@ public class Craps extends DiceGame implements GamblingGame {
             System.out.println("You won " + fieledPot + " on your Field bet");
             crapsPlayer.collectCraps(fieledPot, 2);
         } else if (!fieldNumbers.contains(sumofRoll) && betAmount > 0) {
-            System.out.println("You lost " + fieledPot + " on your field bet");
+            System.out.println("You lost " + fieledPot + " on your Field bet");
         }
         clearfieldPot();
     }
@@ -259,10 +300,11 @@ public class Craps extends DiceGame implements GamblingGame {
     public void checkHardwayWinner(int sumofRoll, Double betAmount, ArrayList<Dice> rolledDice) {
         if(sumofRoll == hardwayNumber && betAmount > 0) {
             if(areDiceTheSame(rolledDice)) {
-                System.out.println("You won " + hardWaysPot + " on your hardway bet");
+                System.out.println("You won " + hardWaysPot + " on your Hardway bet");
+                crapsPlayer.collectCraps(hardWaysPot,2.0);
                 clearHardwayPot();
             } else {
-                System.out.println("You lost " + hardWaysPot + " on your hardway bet");
+                System.out.println("You lost " + hardWaysPot + " on your Hardway bet");
                 clearHardwayPot();
             }
         }
@@ -318,6 +360,10 @@ public class Craps extends DiceGame implements GamblingGame {
 
     public void setHardWayPot(Double amount) {
         this.hardWaysPot = amount;
+    }
+
+    public void setHardwayNumber(Integer hardwayNumber){
+        this.hardwayNumber = hardwayNumber;
     }
 
     public boolean areDiceTheSame(ArrayList<Dice> diceRolled) {

@@ -79,7 +79,20 @@ public class CrapsTest {
 //    }
 
     @Test
-    public void askForBet() {
+    public void rollDiceTest() {
+        int expected = 2;
+
+        int actual = craps.rollDice().size();
+
+        Assert.assertEquals(expected,actual);
+    }
+
+    @Test
+    public void payOutTest(){
+        Double expected = 0.0;
+        Double actual =  craps.payout();
+
+        Assert.assertEquals(expected, actual);
     }
 
     @Test
@@ -300,26 +313,27 @@ public class CrapsTest {
         Assert.assertEquals(expectedPoint, actualPoint);
     }
 
-//    @Test
-//    public void rollDiceSumTest() {
-//        Integer summedRoll = craps.rollDiceSum();
-//        Boolean test = false;
-//
-//        if ((summedRoll <= 12) && (summedRoll > 0)) {
-//            test = true;
-//        }
-//
-//        Assert.assertTrue(test);
-//    }
+    @Test
+    public void rollDiceSumTest() {
+        Integer summedRoll = craps.rollDiceSum(crapsPlayer.rollDice(2));
+        Boolean test = false;
 
-//    @Test
-//    public void checkHardwayWinnerTest(){
-//        //Given
-//        craps.setHardwayRoll(4);
-//        craps.checkHardwayWinner(crapsPlayer.rollDice(2));
-//
-//
-//        //When
-//        //Then
-//    }
+        if ((summedRoll <= 12) && (summedRoll > 0)) {
+            test = true;
+        }
+
+        Assert.assertTrue(test);
+    }
+
+    @Test
+    public void checkHardwayWinnerTest(){
+        Double expected = 900.0;
+        craps.passLineOddsBet(100.0);
+        craps.setHardwayNumber(4);
+
+        craps.checkHardwayWinner(5, 100.0,craps.rollDice());
+        Double actual = crapsPlayer.getWallet();
+
+        Assert.assertEquals(expected, actual);
+    }
 }
