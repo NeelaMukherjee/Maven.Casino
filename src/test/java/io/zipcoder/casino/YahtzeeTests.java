@@ -1792,4 +1792,61 @@ public class YahtzeeTests {
     }
 
 
+    @Test
+    public void walkAwayTest(){
+        // Given
+        Player player = new Player("Cara", 1000.0);
+        Yahtzee yahtzee = new Yahtzee(player);
+        yahtzee.setPlaying(true);
+
+        // when
+        yahtzee.walkAway();
+        boolean actualFalse = yahtzee.isPlaying();
+
+        // Then
+        Assert.assertFalse(actualFalse);
+
+    }
+
+
+    @Test
+    public void categoryStringTest(){
+        // Given
+        Player player = new Player("Cara", 1000.0);
+        Yahtzee yahtzee = new Yahtzee(player);
+
+        String expected = "Enter the category you want to mark on your scorecard.\n" +
+                " 'aces', 'twos', 'threes', fours', 'fives', 'sixes'\n" +
+                "     '3 of a kind', '4 of a kind', 'full house',\n" +
+                "'small straight', large straight', 'yahtzee', 'chance'\n" +
+                "           Enter 'back' to go back.\n";
+
+        // When
+        String actual = yahtzee.categoryString();
+
+        // Then
+        Assert.assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void allOptionsTest(){
+        // Given
+        Player player = new Player("Cara", 1000.0);
+        Yahtzee yahtzee = new Yahtzee(player);
+
+        String expected = "Type 'save' to save rolled dice.\n" +
+                "Type 'return' to return saved dice to be rolled again.\n" +
+                "Type 'roll' to roll again.\n" +
+                "Type 'scorecard' to see scorecard.\n" +
+                "Type 'mark' to mark a score on you scorecard.\n" +
+                "Type 'exit' to walk away.";
+
+        // When
+        String actual = yahtzee.allOptions();
+
+        // Then
+        Assert.assertEquals(expected, actual);
+    }
+
 }
