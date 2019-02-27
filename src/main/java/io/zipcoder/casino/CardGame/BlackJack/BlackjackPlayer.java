@@ -33,19 +33,6 @@ public class BlackjackPlayer implements GamblingPlayer {
         this.wallet += amount;
     }
 
-    public void hit(Deck deck) {
-        this.hand.drawCard(deck);
-    }
-
-    public void stand() {
-    }
-
-    public void doubleDown() {
-    }
-
-    public void split() {
-    }
-
     public Integer sumOfHand() {
         int sum = 0;
         ArrayList<Card> cardsInHand = hand.showMyCards();

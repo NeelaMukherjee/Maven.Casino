@@ -71,29 +71,6 @@ public class BlackjackPlayerTest {
     }
 
     @Test
-    public void hit() {
-        //GIVEN
-        BlackjackPlayer blackjackPlayer = new BlackjackPlayer(this.player);
-        blackjackPlayer.setHand(deck.deal(2));
-        int expected = 3;
-
-        //WHEN
-        blackjackPlayer.hit(deck);
-        int actual = blackjackPlayer.numberOfCardsInHand();
-
-        //THEN
-        Assert.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void doubleDown() {
-    }
-
-    @Test
-    public void split() {
-    }
-
-    @Test
     public void testSumOfHand() {
         //GIVEN
         BlackjackPlayer blackjackPlayer = new BlackjackPlayer(this.player);

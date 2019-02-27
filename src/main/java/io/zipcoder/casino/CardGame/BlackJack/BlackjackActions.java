@@ -6,21 +6,21 @@ import java.util.function.BiConsumer;
 
 public enum BlackjackActions {
 
-    HIT(BlackjackPlayer::hit, 1),
-    STAND((blackjackPlayer, deck) -> blackjackPlayer.stand(),2),
-    DOUBLE_DOWN((blackjackPlayer, deck) -> blackjackPlayer.doubleDown(),3),
-    SPLIT((blackjackPlayer, deck) -> blackjackPlayer.split(),4);
+    HIT(Blackjack::hit, 1),
+    STAND((blackjack, deck) -> blackjack.stand(),2),
+    DOUBLE_DOWN((blackjack, deck) -> blackjack.doubleDown(),3),
+    SPLIT((blackjack, deck) -> blackjack.split(),4);
 
-    private final BiConsumer<BlackjackPlayer, Deck> consumer;
+    private final BiConsumer<Blackjack, Deck> consumer;
     private int menuOption;
 
-    BlackjackActions (BiConsumer<BlackjackPlayer, Deck> consumer, int menuOption) {
+    BlackjackActions (BiConsumer<Blackjack, Deck> consumer, int menuOption) {
         this.consumer = consumer;
         this.menuOption = menuOption;
     }
 
-    public void perform(BlackjackPlayer playerObject, Deck deckObject) {
-        consumer.accept(playerObject, deckObject);
+    public void perform(Blackjack blackjackObject, Deck deckObject) {
+        consumer.accept(blackjackObject, deckObject);
     }
 
     public int getMenuOption(){
