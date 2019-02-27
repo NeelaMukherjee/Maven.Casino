@@ -111,14 +111,14 @@ public class Blackjack extends CardGame implements GamblingGame {
 
 
     public void playerLose() {
-        console.println("\nYou lost " + String.format("$%.2d", pot));
+        console.println("\nYou lost " + String.format("$%.2f", pot));
         this.pot = 0;
         play();
     }
 
     public void playerWin() {
         blackjackPlayer.collect(payout());
-        console.print("\nCongrats, cheater! You won " + String.format("$%.2d",payout()));
+        console.print("\nCongrats, cheater! You won " + String.format("$%.2f",payout()));
         this.pot = 0;
         play();
     }
