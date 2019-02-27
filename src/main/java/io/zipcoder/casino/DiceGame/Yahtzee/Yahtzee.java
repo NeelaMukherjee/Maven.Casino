@@ -1,5 +1,7 @@
-package io.zipcoder.casino.DiceGame;
+package io.zipcoder.casino.DiceGame.Yahtzee;
 
+import io.zipcoder.casino.DiceGame.Dice;
+import io.zipcoder.casino.DiceGame.DiceGame;
 import io.zipcoder.casino.Player;
 import io.zipcoder.casino.utilities.Console;
 import io.zipcoder.casino.utilities.DisplayGraphics;
@@ -12,7 +14,7 @@ public class Yahtzee extends DiceGame {
     private TreeMap<String, Integer> scoreCard;
     private ArrayList<Dice> savedDice;
     private ArrayList<Dice> rolledDice;
-    private boolean playing = false;
+    private boolean playing = true;
     Console console = Console.getInstance();
     DisplayGraphics displayGraphics = new DisplayGraphics();
     String input = "";
@@ -30,7 +32,6 @@ public class Yahtzee extends DiceGame {
     public void play() {
         console.println(DisplayGraphics.welcomeToYahtzeeString());
         input = console.getStringInput("\nHello %s!  Welcome to Yahtzee!  Type 'roll' to begin!", yahtzeePlayer.getName());
-        playing = true;
 
         while (playing) {
             YahtzeeAction.valueOf(input.toUpperCase()).perform(this);

@@ -1,6 +1,5 @@
-package io.zipcoder.casino.DiceGame;
+package io.zipcoder.casino.DiceGame.Yahtzee;
 
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public enum YahtzeeAction {

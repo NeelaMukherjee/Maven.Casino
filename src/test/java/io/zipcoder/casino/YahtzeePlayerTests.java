@@ -1,12 +1,11 @@
 package io.zipcoder.casino;
 
 import io.zipcoder.casino.DiceGame.Dice;
-import io.zipcoder.casino.DiceGame.YahtzeePlayer;
+import io.zipcoder.casino.DiceGame.Yahtzee.YahtzeePlayer;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.TreeMap;
 
 public class YahtzeePlayerTests {
 
