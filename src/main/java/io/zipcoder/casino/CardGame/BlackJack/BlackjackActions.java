@@ -1,24 +1,30 @@
 package io.zipcoder.casino.CardGame.BlackJack;
 
+import io.zipcoder.casino.CardGame.Cards.Deck;
+
+import java.util.function.BiConsumer;
+
 public enum BlackjackActions {
 
-    HIT(1),
-    STAND(2),
-    DOUBLEDOWN(3),
-    SPLIT(4),
-    WALKAWAY(5);
+    HIT(Blackjack::hit, 1),
+    STAND((blackjack, deck) -> blackjack.stand(),2),
+    DOUBLE_DOWN((blackjack, deck) -> blackjack.doubleDown(),3),
+    SPLIT((blackjack, deck) -> blackjack.split(),4);
 
-    int actionValue;
+    private final BiConsumer<Blackjack, Deck> consumer;
+    private int menuOption;
 
-    BlackjackActions (int actionValue) {
-        this.actionValue = actionValue;
+    BlackjackActions (BiConsumer<Blackjack, Deck> consumer, int menuOption) {
+        this.consumer = consumer;
+        this.menuOption = menuOption;
     }
 
-
-    public int getActionValue() {
-        return actionValue;
+    public void perform(Blackjack blackjackObject, Deck deckObject) {
+        consumer.accept(blackjackObject, deckObject);
     }
 
-
+    public int getMenuOption(){
+        return this.menuOption;
+    }
 }
 

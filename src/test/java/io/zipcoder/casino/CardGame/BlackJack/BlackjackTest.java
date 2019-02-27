@@ -1,5 +1,6 @@
 package io.zipcoder.casino.CardGame.BlackJack;
 
+import io.zipcoder.casino.CardGame.Cards.Deck;
 import io.zipcoder.casino.Player;
 import org.junit.Assert;
 import org.junit.Before;
@@ -10,10 +11,12 @@ import static org.junit.Assert.*;
 public class BlackjackTest {
 
     private Player player;
+    private Deck deck;
 
     @Before
     public void setUp(){
         player = new Player("name", 1000);
+        deck = new Deck(10);
     }
     @Test
     public void constructorTest(){
@@ -27,11 +30,6 @@ public class BlackjackTest {
         //Then
         Assert.assertEquals(expected, actual, 0);
     }
-
-    @Test
-    public void testPush() {
-    }
-
 
     @Test
     public void testValidateBet() {
@@ -89,9 +87,6 @@ public class BlackjackTest {
 
         //Then
         Assert.assertEquals(expected, actual,0);
-
-
-
     }
 
     @Test
@@ -106,5 +101,67 @@ public class BlackjackTest {
 
         //Then
         Assert.assertEquals(expected, actual, 0);
+    }
+
+    @Test
+    public void inputToEnum() {
+        //Given
+        Blackjack blackjack = new Blackjack(player);
+        BlackjackActions expected = BlackjackActions.DOUBLE_DOWN;
+
+        //When
+        BlackjackActions actual = blackjack.inputToEnum(3);
+
+        //Then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void hit() {
+        //GIVEN
+        Blackjack blackjack = new Blackjack(this.player);
+        blackjack.getBlackjackPlayer().setHand(deck.deal(2));
+        int expected = 3;
+
+        //WHEN
+        blackjack.hit(deck);
+        int actual = blackjack.getBlackjackPlayer().numberOfCardsInHand();
+
+        //THEN
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void doublePot() {
+        //Given
+        Blackjack blackjack = new Blackjack(player);
+        double expected = 200;
+        blackjack.setBet(100);
+        blackjack.takeBet(100);
+
+        //When
+        blackjack.doublePot();
+        double actual = blackjack.getPot();
+
+        //Then
+        Assert.assertEquals(expected, actual, 0);
+    }
+
+    @Test
+    public void split() {
+    }
+
+
+    @Test
+    public void canDoubleDown() {
+        //Given
+        Blackjack blackjack = new Blackjack(player);
+        blackjack.setBet(2000);
+
+        //When
+        boolean actual = blackjack.canDoubleDown();
+
+        //Then
+        Assert.assertFalse(actual);
     }
 }
