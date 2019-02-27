@@ -19,7 +19,7 @@ public class CrapsPlayer implements GamblingPlayer {
     }
 
     public void bet(double amount) {
-        while (this.wallet < amount){
+        while (this.wallet < amount || amount < 0){
             amount = crapPlayerConsole.getDoubleInput("\nPlease enter an amount of money less than or equal to your wallet\n" + "You have " + this.wallet + " available");
         }
         this.wallet = wallet - amount;
