@@ -10,6 +10,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static io.zipcoder.casino.CardGame.Cards.Face.*;
 
@@ -92,13 +93,13 @@ public class GoFishTests {
     }
 
 
-  /*  @Test
+   @Test
     public void getCardOptionsTest(){
         // Given
         Player player = new Player("Cara", 1000);
         GoFish goFish = new GoFish(player);
 
-        String expected = "\n'Ace' 'Two' 'Three' 'Four' 'Five' 'Six' 'Seven' 'Eight' 'Nine ' Ten' 'Jack' 'Queen' 'King'\n";
+        String expected = "\n[ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING]\n";
 
         // When
         String actual = goFish.getCardOptions();
@@ -106,7 +107,7 @@ public class GoFishTests {
         // Then
         Assert.assertEquals(expected, actual);
     }
-*/
+
 
     @Test
     public void updatePlayerScoreTest() {
@@ -241,18 +242,6 @@ public class GoFishTests {
         Assert.assertTrue(actualTrue);
         Assert.assertFalse(actualFalse);
     }
-
-
-/*
-    @Test
-    public void respondToDealerTest() {
-        // Given
-        Player player = new Player("Cara", 1000);
-        GoFish goFish = new GoFish(player);
-        GoFishPlayer dealer = goFish.getDealer();
-        Face requestedCard = KING;
-    }
-*/
 
 
     @Test
@@ -587,26 +576,132 @@ public class GoFishTests {
 
     }
 
+
     @Test
-    public void checkIfOutOfCardsTest(){
-
+    public void startGameTest(){
         // Given
-        Player player = new Player("Nhu", 1000);
+        Player player = new Player("Cara", 1000);
         GoFish goFish = new GoFish(player);
-
-        goFish.getDeck().deck.removeAll(goFish.getDeck().deck);
-
+        goFish.setInput("deal");
+        int expectedCardCount = 7;
 
         // When
-   
-        goFish.drawNewCardsIfHandIsEmpty(goFish.getDealer());
-
+        goFish.startGame();
+        boolean actualTrue = goFish.isPlaying();
+        int actualCardCountPlayer = goFish.getGoFishPlayer().getHand().getSize();
+        int actualCardCountDealer = goFish.getDealer().getHand().getSize();
 
         // Then
-        Assert.assertTrue(goFish.deckIsEmpty(goFish.getDeck()));
+        Assert.assertTrue(actualTrue);
+        Assert.assertEquals(expectedCardCount, actualCardCountDealer);
+        Assert.assertEquals(expectedCardCount, actualCardCountPlayer);
+    }
+
+
+    @Test
+    public void dealerDrawTest(){
+        // Given
+        Player player = new Player("Cara", 1000);
+        GoFish goFish = new GoFish(player);
+
+        List<Card> dealersCards = goFish.getDealer().getHand().showMyCards();
+        dealersCards.add(h4);
+
+        int expectedHandsSize = 2;
+
+        // When
+        goFish.dealerDraw(Face.NINE);
+        int actualSize = dealersCards.size();
+
+        // Then
+        Assert.assertEquals(expectedHandsSize, actualSize);
+    }
+
+
+    @Test
+    public void giveDealerCardTest(){
+        // Given
+        Player player = new Player("Cara", 1000);
+        GoFish goFish = new GoFish(player);
+        List<Card> dealersCards = goFish.getDealer().getHand().showMyCards();
+        dealersCards.add(h4);
+        List<Card> playersCards = goFish.getGoFishPlayer().getHand().showMyCards();
+        playersCards.add(s9);
+        playersCards.add(c9);
+        int expectedDealersHandSize = 3;
+        int expectedPlayersHandSize = 0;
+        goFish.setDealerAskingForCard(false);
+
+        // When
+        goFish.giveDealerCard(NINE);
+        int actualDealersHandSize = goFish.getDealer().getHand().getSize();
+        int actualPlayersHandSize = goFish.getGoFishPlayer().getHand().getSize();
+        boolean actualDealerAskingForCard = goFish.isDealerAskingForCard();
+
+        // Then
+        Assert.assertEquals(expectedDealersHandSize, actualDealersHandSize);
+        Assert.assertEquals(expectedPlayersHandSize, actualPlayersHandSize);
+        Assert.assertTrue(actualDealerAskingForCard);
+    }
+
+
+    @Test
+    public void checkIfOutOfCardsTest(){
+        // Given
+        Player player = new Player("Cara", 1000);
+        GoFish goFish = new GoFish(player);
+        List<Card> dealersCards = goFish.getDealer().getHand().showMyCards();
+        List<Card> playersCards = goFish.getGoFishPlayer().getHand().showMyCards();
+        int expectedDeckSize = 38;
+        int expectedDealersHandSize = 7;
+        int expectedPlayersHandSize = 7;
+
+        // When
+        goFish.checkIfOutOfCards();
+        int actualDeckSize = goFish.getDeck().deckSize();
+        int actualDealersHandSize = dealersCards.size();
+        int actualPlayersHandSize = playersCards.size();
+
+        // Then
+        Assert.assertEquals(expectedDeckSize, actualDeckSize);
+        Assert.assertEquals(expectedDealersHandSize, actualDealersHandSize);
+        Assert.assertEquals(expectedPlayersHandSize, actualPlayersHandSize);
 
     }
 
+
+    @Test
+    public void goFishTimeString(){
+        // Given
+        Player player = new Player("Cara", 1000);
+        GoFish goFish = new GoFish(player);
+        String expected = "\n" +
+                "               O  o\n" +
+                "          _\\_   o\n" +
+                "       \\\\/  o\\ .\n" +
+                "       //\\___=\n" +
+                "          ''\n" +
+                "____ ____    ____ _ ____ _  _    ___ _ _  _ ____   /\n" +
+                "| __ |  |    |___ | [__  |__|     |  | |\\/| |___  / \n" +
+                "|__] |__|    |    | ___] |  |     |  | |  | |___ .  \n" +
+                "                                                    \n" +
+                "          _____\n" +
+                "         |A .  | _____\n" +
+                "         | /.\\ ||A ^  | _____\n" +
+                "         |(_._)|| / \\ ||A _  | _____\n" +
+                "         |  |  || \\ / || ( ) ||A_ _ |\n" +
+                "         |____V||  .  ||(_'_)||( v )|\n" +
+                "                |____V||  |  || \\ / |\n" +
+                "                       |____V||  .  |\n" +
+                "                              |____V|";
+
+
+        // When
+        String actual = goFish.goFishTimeString();
+
+        // Then
+        Assert.assertEquals(expected, actual);
+    }
 
 
 }

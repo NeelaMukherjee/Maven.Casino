@@ -2,11 +2,11 @@ package io.zipcoder.casino;
 
 import io.zipcoder.casino.DiceGame.Dice;
 import io.zipcoder.casino.DiceGame.Yahtzee;
-import io.zipcoder.casino.DiceGame.YahtzeePlayer;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.TreeMap;
 
 public class YahtzeeTests {
@@ -1571,7 +1571,7 @@ public class YahtzeeTests {
         yahtzee1.getScoreCard().put("fours", 8);
         yahtzee1.getScoreCard().put("fives", 20);
         yahtzee1.getScoreCard().put("sixes", 18);
-        int actual1 = yahtzee1.getUpperSectionTotal(yahtzee1.getScoreCard());
+        int actual1 = yahtzee1.getUpperSectionTotal();
 
         yahtzee2.getScoreCard().put("aces", 2);
         yahtzee2.getScoreCard().put("twos", 2);
@@ -1579,7 +1579,7 @@ public class YahtzeeTests {
         yahtzee2.getScoreCard().put("fours", 8);
         yahtzee2.getScoreCard().put("fives", 20);
         yahtzee2.getScoreCard().put("sixes", 18);
-        int actual2 = yahtzee2.getUpperSectionTotal(yahtzee2.getScoreCard());
+        int actual2 = yahtzee2.getUpperSectionTotal();
 
         yahtzee3.getScoreCard().put("aces", 2);
         yahtzee3.getScoreCard().put("twos", 2);
@@ -1587,7 +1587,7 @@ public class YahtzeeTests {
         yahtzee3.getScoreCard().put("fours", 8);
         yahtzee3.getScoreCard().put("fives", 20);
         yahtzee3.getScoreCard().put("sixes", 24);
-        int actual3 = yahtzee3.getUpperSectionTotal(yahtzee3.getScoreCard());
+        int actual3 = yahtzee3.getUpperSectionTotal();
 
         // Then
         Assert.assertEquals(expected1, actual1);
@@ -1614,7 +1614,7 @@ public class YahtzeeTests {
         yahtzee1.getScoreCard().put("fours", 8);
         yahtzee1.getScoreCard().put("fives", 20);
         yahtzee1.getScoreCard().put("sixes", 18);
-        int actual1 = yahtzee1.upperSectionBonus(yahtzee1.getScoreCard());
+        int actual1 = yahtzee1.upperSectionBonus();
 
         yahtzee2.getScoreCard().put("aces", 2);
         yahtzee2.getScoreCard().put("twos", 2);
@@ -1622,7 +1622,7 @@ public class YahtzeeTests {
         yahtzee2.getScoreCard().put("fours", 8);
         yahtzee2.getScoreCard().put("fives", 20);
         yahtzee2.getScoreCard().put("sixes", 18);
-        int actual2 = yahtzee2.upperSectionBonus(yahtzee2.getScoreCard());
+        int actual2 = yahtzee2.upperSectionBonus();
 
         yahtzee3.getScoreCard().put("aces", 2);
         yahtzee3.getScoreCard().put("twos", 2);
@@ -1630,7 +1630,7 @@ public class YahtzeeTests {
         yahtzee3.getScoreCard().put("fours", 8);
         yahtzee3.getScoreCard().put("fives", 20);
         yahtzee3.getScoreCard().put("sixes", 24);
-        int actual3 = yahtzee3.upperSectionBonus(yahtzee3.getScoreCard());
+        int actual3 = yahtzee3.upperSectionBonus();
 
         // Then
         Assert.assertEquals(expected1, actual1);
@@ -1653,7 +1653,7 @@ public class YahtzeeTests {
         yahtzee.getScoreCard().put("large straight", 40);
         yahtzee.getScoreCard().put("yahtzee", 50);
         yahtzee.getScoreCard().put("chance", 23);
-        int actual = yahtzee.getLowerSectionTotal(yahtzee.getScoreCard());
+        int actual = yahtzee.getLowerSectionTotal();
 
         // Then
         Assert.assertEquals(expected, actual);
@@ -1684,7 +1684,7 @@ public class YahtzeeTests {
         int expected = 308;
 
         // When
-        int actual = yahtzee.getTotalScore(yahtzee.getScoreCard());
+        int actual = yahtzee.getTotalScore();
 
         // Then
         Assert.assertEquals(expected, actual);
@@ -1737,6 +1737,7 @@ public class YahtzeeTests {
 
         boolean expectedFalse2 = yahtzee.scorecardComplete();
 
+        yahtzee.getScoreCard().put("upper bonus", 35);
         yahtzee.getScoreCard().put("3 of a kind", 20);
         yahtzee.getScoreCard().put("4 of a kind", 22);
         yahtzee.getScoreCard().put("full house", 25);
@@ -1744,6 +1745,7 @@ public class YahtzeeTests {
         yahtzee.getScoreCard().put("large straight", 40);
         yahtzee.getScoreCard().put("yahtzee", 50);
         yahtzee.getScoreCard().put("chance", 23);
+        yahtzee.getScoreCard().put("total score", 200);
 
         boolean expectedTrue = yahtzee.scorecardComplete();
 
@@ -1844,6 +1846,54 @@ public class YahtzeeTests {
 
         // When
         String actual = yahtzee.allOptions();
+
+        // Then
+        Assert.assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void getUpperSectionCategoriesTest(){
+        // Given
+        Player player = new Player("Cara", 1000.0);
+        Yahtzee yahtzee = new Yahtzee(player);
+        Collection<String> expected = yahtzee.getAllCategories();
+        expected.removeAll(yahtzee.getLowerSectionCategories());
+
+        // When
+        Collection<String> actual = yahtzee.getUpperSectionCategories();
+
+        // Then
+        Assert.assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void getLowerSectionCategoriesTest(){
+        // Given
+        Player player = new Player("Cara", 1000.0);
+        Yahtzee yahtzee = new Yahtzee(player);
+        Collection<String> expected = yahtzee.getAllCategories();
+        expected.removeAll(yahtzee.getUpperSectionCategories());
+
+        // When
+        Collection<String> actual = yahtzee.getLowerSectionCategories();
+
+        // Then
+        Assert.assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void getAllCategoriesTest(){
+        // Given
+        Player player = new Player("Cara", 1000.0);
+        Yahtzee yahtzee = new Yahtzee(player);
+        Collection<String> expected = yahtzee.getUpperSectionCategories();
+        expected.addAll(yahtzee.getLowerSectionCategories());
+
+        // When
+        Collection<String> actual = yahtzee.getAllCategories();
 
         // Then
         Assert.assertEquals(expected, actual);

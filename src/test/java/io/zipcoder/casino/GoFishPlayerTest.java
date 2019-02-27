@@ -8,6 +8,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GoFishPlayerTest {
 
@@ -327,4 +328,58 @@ public class GoFishPlayerTest {
         Assert.assertTrue(expectedTrue2);
         Assert.assertFalse(expectedFalse);
     }
+
+
+    @Test
+    public void playerHasCardsTest(){
+        // Given
+        Player player = new Player("Cara", 1000);
+        GoFishPlayer goFishPlayer = new GoFishPlayer(player);
+        List<Card> cards = goFishPlayer.getHand().showMyCards();
+
+        // When
+        boolean expectedFalse = goFishPlayer.playerHasCards();
+
+        cards.add(h9);
+        cards.add(sA);
+
+        boolean expectedTrue = goFishPlayer.playerHasCards();
+
+        // Then
+        Assert.assertFalse(expectedFalse);
+        Assert.assertTrue(expectedTrue);
+    }
+
+
+    @Test
+    public void setPlayerTest(){
+        // Given
+        Player player = new Player("Cara", 1000);
+        GoFishPlayer goFishPlayer = new GoFishPlayer(player);
+        Player expected = new Player("Expected", 1000);
+
+        // When
+        goFishPlayer.setPlayer(expected);
+        Player actual = goFishPlayer.getPlayer();
+
+        // Then
+        Assert.assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void setCounter4Test(){
+        // Given
+        Player player = new Player("Cara", 1000);
+        GoFishPlayer goFishPlayer = new GoFishPlayer(player);
+        int expected = 5;
+
+        // When
+        goFishPlayer.setCounter4(expected);
+        int actual = goFishPlayer.getCounter4();
+
+        // Then
+        Assert.assertEquals(expected, actual);
+    }
+
 }
