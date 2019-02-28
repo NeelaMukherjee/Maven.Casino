@@ -1,9 +1,10 @@
 package io.zipcoder.casino;
 
-import io.zipcoder.casino.CardGame.Cards.Card;
-import io.zipcoder.casino.CardGame.Cards.Face;
-import io.zipcoder.casino.CardGame.Cards.Suit;
-import io.zipcoder.casino.CardGame.GoFishPlayer;
+import io.zipcoder.casino.CardGames.CardUtils.Card;
+import io.zipcoder.casino.CardGames.CardUtils.Face;
+import io.zipcoder.casino.CardGames.CardUtils.Suit;
+import io.zipcoder.casino.CardGames.GoFish.GoFishPlayer;
+import io.zipcoder.casino.Utilities.Player;
 import org.junit.Assert;
 import org.junit.Test;
 

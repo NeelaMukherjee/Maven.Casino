@@ -1,12 +1,14 @@
 package io.zipcoder.casino;
 
 
-import io.zipcoder.casino.CardGame.BlackJack.Blackjack;
-import io.zipcoder.casino.CardGame.GoFish;
-import io.zipcoder.casino.DiceGame.Craps;
+import io.zipcoder.casino.CardGames.BlackJack.Blackjack;
+import io.zipcoder.casino.CardGames.GoFish.GoFish;
+import io.zipcoder.casino.DiceGame.Craps.Craps;
 import io.zipcoder.casino.DiceGame.Yahtzee.Yahtzee;
-import io.zipcoder.casino.utilities.Console;
-import io.zipcoder.casino.utilities.DisplayGraphics;
+import io.zipcoder.casino.Interfaces.Game;
+import io.zipcoder.casino.Utilities.Console;
+import io.zipcoder.casino.Utilities.DisplayGraphics;
+import io.zipcoder.casino.Utilities.Player;
 
 public class Casino {
     private static Player player;
@@ -39,7 +41,7 @@ public class Casino {
 
         console.println(DisplayGraphics.zipCodeCasinoString());
 
-        String name = console.getStringInput("Welcome to the Zip Code Casino!  What is your name?");
+        String name = console.getStringInput("Welcome to the Zip Code GoFish!  What is your name?");
         Double wallet = console.getDoubleInput("\nThanks for playing, %s!  How much money will you be gambling?", name);
         Casino.setPlayer(new Player(name, wallet));
 
@@ -71,7 +73,7 @@ public class Casino {
 
                 case "exit":
                     running = false;
-                    console.println("Bye %s!  Thank you for playing at the Zip Code Casino!", name);
+                    console.println("Bye %s!  Thank you for playing at the Zip Code GoFish!", name);
                     break;
 
                 default:

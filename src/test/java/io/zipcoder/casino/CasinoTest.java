@@ -1,6 +1,8 @@
 package io.zipcoder.casino;
 
 import io.zipcoder.casino.DiceGame.Yahtzee.Yahtzee;
+import io.zipcoder.casino.Interfaces.Game;
+import io.zipcoder.casino.Utilities.Player;
 import org.junit.Assert;
 import org.junit.Test;
 

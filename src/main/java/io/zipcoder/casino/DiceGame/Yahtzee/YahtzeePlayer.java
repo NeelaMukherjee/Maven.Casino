@@ -1,13 +1,12 @@
 package io.zipcoder.casino.DiceGame.Yahtzee;
 
-import io.zipcoder.casino.DiceGame.Dice;
-import io.zipcoder.casino.Player;
+import io.zipcoder.casino.DiceGame.DiceUtils.Dice;
+import io.zipcoder.casino.Utilities.Player;
 
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeMap;
 
 public class YahtzeePlayer {
     private String name;

@@ -1,10 +1,10 @@
 package io.zipcoder.casino.DiceGame.Yahtzee;
 
-import io.zipcoder.casino.DiceGame.Dice;
-import io.zipcoder.casino.DiceGame.DiceGame;
-import io.zipcoder.casino.Player;
-import io.zipcoder.casino.utilities.Console;
-import io.zipcoder.casino.utilities.DisplayGraphics;
+import io.zipcoder.casino.DiceGame.DiceUtils.Dice;
+import io.zipcoder.casino.DiceGame.DiceUtils.DiceGame;
+import io.zipcoder.casino.Utilities.Player;
+import io.zipcoder.casino.Utilities.Console;
+import io.zipcoder.casino.Utilities.DisplayGraphics;
 
 import java.util.*;
 
