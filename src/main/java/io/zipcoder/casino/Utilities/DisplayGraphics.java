@@ -48,4 +48,19 @@ public class DisplayGraphics {
                 "⚂ ♦ ♠ ♣ ♥ ♦ ♠ ♣ ♥ ♦ ♠ ♣ ♥ ♦ ♠ ♣ ♥ ♦ ♠ ♣ ♥ ♦ ♠ ♣ ♥ ♦ ♠ ♣ ♥ ♦ ♠ ♣ ♥ ♦ ♠ ♣ ♠ ⚅\n" +
                 "⚁ ⚀ ⚅ ⚄ ⚃ ⚂ ⚁ ⚀ ⚅ ⚄ ⚃ ⚂ ⚁ ⚀ ⚅ ⚄ ⚃ ⚂ ⚁ ⚀ ⚅ ⚄ ⚃ ⚂ ⚁ ⚀ ⚅ ⚄ ⚃ ⚂ ⚁ ⚀ ⚅ ⚄ ⚃ ⚂ ⚁ ⚀\n";
     }
-}
+
+    public static String crapsOptions1() {
+        return "Type 'pass line' to place a pass line bet.\n" +
+                "Type 'field' to place field bet.\n" +
+                "Type 'hardway' to place a hardway bet\n" +
+                "Type roll to roll the dice \n";
+    }
+
+    public static String crapsOptions2() {
+        return "Type 'field' to place a field bet.\n" +
+                "Type pass line odds to place odds on the pass line. \n" +
+                "Type 'hardway' to place a hardway bet. \n" +
+                "Type roll to roll the dice. \n";
+    }
+
+    }
