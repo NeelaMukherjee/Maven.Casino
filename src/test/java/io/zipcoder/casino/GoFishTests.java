@@ -1,18 +1,18 @@
 package io.zipcoder.casino;
 
-import io.zipcoder.casino.CardGame.Cards.Card;
-import io.zipcoder.casino.CardGame.Cards.Face;
-import io.zipcoder.casino.CardGame.Cards.Suit;
-import io.zipcoder.casino.CardGame.GoFish;
-import io.zipcoder.casino.CardGame.GoFishPlayer;
-import io.zipcoder.casino.utilities.Console;
+import io.zipcoder.casino.CardGames.CardUtils.Card;
+import io.zipcoder.casino.CardGames.CardUtils.Face;
+import io.zipcoder.casino.CardGames.CardUtils.Suit;
+import io.zipcoder.casino.CardGames.GoFish.GoFish;
+import io.zipcoder.casino.CardGames.GoFish.GoFishPlayer;
+import io.zipcoder.casino.Utilities.Player;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static io.zipcoder.casino.CardGame.Cards.Face.*;
+import static io.zipcoder.casino.CardGames.CardUtils.Face.*;
 
 public class GoFishTests {
 

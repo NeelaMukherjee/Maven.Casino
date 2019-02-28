@@ -1,8 +1,8 @@
 package io.zipcoder.casino;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import io.zipcoder.casino.DiceGame.Craps;
-import io.zipcoder.casino.DiceGame.CrapsPlayer;
+import io.zipcoder.casino.DiceGame.Craps.Craps;
+import io.zipcoder.casino.DiceGame.Craps.CrapsPlayer;
+import io.zipcoder.casino.Utilities.Player;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
