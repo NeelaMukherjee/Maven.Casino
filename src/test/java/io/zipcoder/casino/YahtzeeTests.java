@@ -199,11 +199,11 @@ public class YahtzeeTests {
         int actualFivesScore = yahtzee.getScoreForCategory("Fives", fivesDice);
         int actualSixesScore = yahtzee.getScoreForCategory("Sixes", sixesDice);
 
-        int actualThreeOfAKindScore = yahtzee.getScoreForCategory("3 of a kind", threeOfAKindDice);
-        int actualNotThreeOfAKindScore = yahtzee.getScoreForCategory("3 of a kind", twosDice);
+        int actualThreeOfAKindScore = yahtzee.getScoreForCategory("Three of a kind", threeOfAKindDice);
+        int actualNotThreeOfAKindScore = yahtzee.getScoreForCategory("Three of a kind", twosDice);
 
-        int actualFourOfAKindScore = yahtzee.getScoreForCategory("4 of a kind", fourOfAKindDice);
-        int actualNotFourOfAKindScore = yahtzee.getScoreForCategory("4 of a kind", foursDice);
+        int actualFourOfAKindScore = yahtzee.getScoreForCategory("Four of a kind", fourOfAKindDice);
+        int actualNotFourOfAKindScore = yahtzee.getScoreForCategory("Four of a kind", foursDice);
 
         int actualSmallStraightScore = yahtzee.getScoreForCategory("Small straight", smallStraightDice);
         int actualNotSmallStraightScore = yahtzee.getScoreForCategory("Small straight", fourOfAKindDice);
@@ -1055,11 +1055,11 @@ public class YahtzeeTests {
         yahtzee.markScoreCard("Sixes", rollSixes);
         int actualSixes = yahtzee.getScoreCard().get("sixes");
 
-        yahtzee.markScoreCard("3 of a kind", rollThreeOfAKind);
-        int actualThreeOfAKind = yahtzee.getScoreCard().get("3 of a kind");
+        yahtzee.markScoreCard("three of a kind", rollThreeOfAKind);
+        int actualThreeOfAKind = yahtzee.getScoreCard().get("three of a kind");
 
-        yahtzee.markScoreCard("4 of a kind", rollFourOfAKind);
-        int actualFourOfAKind = yahtzee.getScoreCard().get("4 of a kind");
+        yahtzee.markScoreCard("four of a kind", rollFourOfAKind);
+        int actualFourOfAKind = yahtzee.getScoreCard().get("four of a kind");
 
         yahtzee.markScoreCard("Full House", rollFullHouse);
         int actualFullHouse = yahtzee.getScoreCard().get("full house");
@@ -1405,7 +1405,7 @@ public class YahtzeeTests {
         // When
         String actual1 = yahtzee.getThreeOfAKindScoreString();
 
-        yahtzee.getScoreCard().put("3 of a kind", 22);
+        yahtzee.getScoreCard().put("three of a kind", 22);
         String actual2 = yahtzee.getThreeOfAKindScoreString();
 
         // Then
@@ -1425,7 +1425,7 @@ public class YahtzeeTests {
         // When
         String actual1 = yahtzee.getFourOfAKindScoreString();
 
-        yahtzee.getScoreCard().put("4 of a kind", 20);
+        yahtzee.getScoreCard().put("four of a kind", 20);
         String actual2 = yahtzee.getFourOfAKindScoreString();
 
         // Then
@@ -1647,8 +1647,8 @@ public class YahtzeeTests {
         int expected = 210;
 
         // When
-        yahtzee.getScoreCard().put("3 of a kind", 20);
-        yahtzee.getScoreCard().put("4 of a kind", 22);
+        yahtzee.getScoreCard().put("three of a kind", 20);
+        yahtzee.getScoreCard().put("four of a kind", 22);
         yahtzee.getScoreCard().put("full house", 25);
         yahtzee.getScoreCard().put("small straight", 30);
         yahtzee.getScoreCard().put("large straight", 40);
@@ -1674,8 +1674,8 @@ public class YahtzeeTests {
         yahtzee.getScoreCard().put("fives", 20);
         yahtzee.getScoreCard().put("sixes", 18);
         yahtzee.getScoreCard().put("upper bonus", 35);
-        yahtzee.getScoreCard().put("3 of a kind", 20);
-        yahtzee.getScoreCard().put("4 of a kind", 22);
+        yahtzee.getScoreCard().put("three of a kind", 20);
+        yahtzee.getScoreCard().put("four of a kind", 22);
         yahtzee.getScoreCard().put("full house", 25);
         yahtzee.getScoreCard().put("small straight", 30);
         yahtzee.getScoreCard().put("large straight", 40);
@@ -1739,8 +1739,8 @@ public class YahtzeeTests {
         boolean expectedFalse2 = yahtzee.scorecardComplete();
 
         yahtzee.getScoreCard().put("upper bonus", 35);
-        yahtzee.getScoreCard().put("3 of a kind", 20);
-        yahtzee.getScoreCard().put("4 of a kind", 22);
+        yahtzee.getScoreCard().put("three of a kind", 20);
+        yahtzee.getScoreCard().put("four of a kind", 22);
         yahtzee.getScoreCard().put("full house", 25);
         yahtzee.getScoreCard().put("small straight", 30);
         yahtzee.getScoreCard().put("large straight", 40);
@@ -1801,7 +1801,7 @@ public class YahtzeeTests {
 
         String expected = "Enter the category you want to mark on your scorecard.\n" +
                 " 'aces', 'twos', 'threes', fours', 'fives', 'sixes'\n" +
-                "     '3 of a kind', '4 of a kind', 'full house',\n" +
+                "     'three of a kind', 'four of a kind', 'full house',\n" +
                 "'small straight', large straight', 'yahtzee', 'chance'\n" +
                 "           Enter 'back' to go back.\n";
 
