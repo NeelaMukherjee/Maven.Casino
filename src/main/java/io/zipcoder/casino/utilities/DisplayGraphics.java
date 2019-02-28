@@ -1,7 +1,7 @@
 package io.zipcoder.casino.utilities;
 
 public class DisplayGraphics {
-    public void crapsWelcomeDisplay(){
+    public void crapsWelcomeDisplay() {
         System.out.println(" ___       __   _______   ___       ________  ________  _____ ______   _______           _________  ________     \n" +
                 "|\\  \\     |\\  \\|\\  ___ \\ |\\  \\     |\\   ____\\|\\   __  \\|\\   _ \\  _   \\|\\  ___ \\         |\\___   ___\\\\   __  \\    \n" +
                 "\\ \\  \\    \\ \\  \\ \\   __/|\\ \\  \\    \\ \\  \\___|\\ \\  \\|\\  \\ \\  \\\\\\__\\ \\  \\ \\   __/|        \\|___ \\  \\_\\ \\  \\|\\  \\   \n" +
@@ -21,5 +21,19 @@ public class DisplayGraphics {
                 "    \\|_______|\\|__|\\|__|\\|__|\\|__|\\|__|    |\\_________\\                                                          \n" +
                 "                                           \\|_________|   ");
 
+    }
+
+    public static String crapsOptions1() {
+        return "Type 'pass line' to place a pass line bet.\n" +
+                "Type 'field' to place field bet.\n" +
+                "Type 'hardway' to place a hardway bet\n" +
+                "Type roll to roll the dice \n";
+    }
+
+    public static String crapsOptions2() {
+        return "Type 'field' to place a field bet.\n" +
+                "Type pass line odds to place odds on the pass line. \n" +
+                "Type 'hardway' to place a hardway bet. \n" +
+                "Type roll to roll the dice. \n";
     }
 }
