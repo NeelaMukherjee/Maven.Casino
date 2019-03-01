@@ -911,7 +911,7 @@ public class YahtzeeTests {
         Assert.assertEquals(expectedSum2, actualSum2);
     }
 
-    @Test
+ /*   @Test
     public void markScoreCardTest() {
         //Given
         Player player = new Player("Cara", 1000.00);
@@ -1091,7 +1091,7 @@ public class YahtzeeTests {
         Assert.assertEquals(expectedLargeStraight, actualLargeStraight);
         Assert.assertEquals(expectedYahtzee, actualYahtzee);
         Assert.assertEquals(expectedChance, actualChance);
-    }
+    }*/
 
 
     @Test
@@ -1159,7 +1159,7 @@ public class YahtzeeTests {
     }
 
 
-    @Test
+    /*@Test
     public void setUpScoreCardTest() {
         // Given
         Player player = new Player("Cara", 1000.0);
@@ -1880,5 +1880,5 @@ public class YahtzeeTests {
         // Then
         Assert.assertEquals(expected, actual);
     }
-
+*/
 }
