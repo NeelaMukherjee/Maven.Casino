@@ -8,6 +8,8 @@ import io.zipcoder.casino.Utilities.DisplayGraphics;
 
 import java.util.*;
 
+import static io.zipcoder.casino.DiceGame.Yahtzee.YahtzeeDisplay.*;
+
 
 public class Yahtzee extends DiceGame {
     private YahtzeePlayer yahtzeePlayer;
@@ -32,7 +34,7 @@ public class Yahtzee extends DiceGame {
 
     @Override
     public void play() {
-        console.println(DisplayGraphics.welcomeToYahtzeeString());
+        console.println(welcomeToYahtzeeString());
         input = console.getStringInput("\nHello %s!  Welcome to Yahtzee!  Type 'roll' to begin!", yahtzeePlayer.getName());
         while (playing) {
            playGame();
@@ -258,62 +260,6 @@ public class Yahtzee extends DiceGame {
 
 
 
-    public String listOfDiceToDiceString(ArrayList<Dice> diceList) {
-        String diceString = "";
-        for (Dice die : diceList) {
-            if (die.getValue() == 1) {
-                diceString = diceString + "  ⚀  |";
-            } else if (die.getValue() == 2) {
-                diceString = diceString + "  ⚁  |";
-            } else if (die.getValue() == 3) {
-                diceString = diceString + "  ⚂  |";
-            } else if (die.getValue() == 4) {
-                diceString = diceString + "  ⚃  |";
-            } else if (die.getValue() == 5) {
-                diceString = diceString + "  ⚄  |";
-            } else if (die.getValue() == 6) {
-                diceString = diceString + "  ⚅  |";
-            }
-        }
-        return diceString;
-
-    }
-
-
-    public String getCurrentDiceString(ArrayList<Dice> rolledDice, ArrayList<Dice> savedDice) {
-        String currentDiceString = "";
-        String spacerString = "\n|------------------------------------------|\n";
-        String numberString = "|            |  1  |  2  |  3  |  4  |  5  |";
-
-
-        String rolledDiceString = "|Rolled Dice |" + listOfDiceToDiceString(rolledDice);
-        for (int i = 0; i < 5 - rolledDice.size(); i++) {
-            rolledDiceString = rolledDiceString + "     |";
-        }
-
-        String savedDiceString = "| Saved Dice |";
-
-        for (int i = 0; i < rolledDice.size(); i++) {
-            savedDiceString = savedDiceString + "     |";
-        }
-
-        savedDiceString = savedDiceString + listOfDiceToDiceString(savedDice);
-        currentDiceString = spacerString + numberString + spacerString + rolledDiceString + spacerString + savedDiceString + spacerString;
-
-        return currentDiceString;
-    }
-
-
-    public String allOptions() {
-        return "Type 'save' to save rolled dice.\n" +
-                "Type 'return' to return saved dice to be rolled again.\n" +
-                "Type 'roll' to roll again.\n" +
-                "Type 'scorecard' to see scorecard.\n" +
-                "Type 'mark' to mark a score on you scorecard.\n" +
-                "Type 'exit' to walk away.";
-    }
-
-
     public void roll() {
         try {
             rolledDice = yahtzeePlayer.playerRollDice(5 - savedDice.size());
@@ -371,14 +317,6 @@ public class Yahtzee extends DiceGame {
         }
     }
 
-
-    public String categoryString() {
-        return "Enter the category you want to mark on your scorecard.\n" +
-                " 'aces', 'twos', 'threes', fours', 'fives', 'sixes'\n" +
-                "     'three of a kind', 'four of a kind', 'full house',\n" +
-                "'small straight', large straight', 'yahtzee', 'chance'\n" +
-                "           Enter 'back' to go back.\n";
-    }
 
     public void back() {
         console.println("\nRoll #%d", yahtzeePlayer.getRollNumber());
@@ -446,4 +384,3 @@ public class Yahtzee extends DiceGame {
         }
     }
 }
-

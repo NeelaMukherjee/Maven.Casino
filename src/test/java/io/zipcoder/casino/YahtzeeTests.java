@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.TreeMap;
 
+import static io.zipcoder.casino.DiceGame.Yahtzee.YahtzeeDisplay.getCurrentDiceString;
+import static io.zipcoder.casino.DiceGame.Yahtzee.YahtzeeDisplay.listOfDiceToDiceString;
+
 public class YahtzeeTests {
 
     Dice d1 = new Dice(1, 1);
@@ -1116,8 +1119,8 @@ public class YahtzeeTests {
         String expected2 = "  ⚅  |  ⚁  |";
 
         // When
-        String actual1 = yahtzee.listOfDiceToDiceString(diceList1);
-        String actual2 = yahtzee.listOfDiceToDiceString(diceList2);
+        String actual1 = listOfDiceToDiceString(diceList1);
+        String actual2 = listOfDiceToDiceString(diceList2);
 
         // Then
         Assert.assertEquals(expected1, actual1);
@@ -1150,7 +1153,7 @@ public class YahtzeeTests {
 
 
         // When
-        String actual = yahtzee.getCurrentDiceString(rolledDice, savedDice);
+        String actual = getCurrentDiceString(rolledDice, savedDice);
 
         // Then
         Assert.assertEquals(expected, actual);
