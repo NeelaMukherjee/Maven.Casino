@@ -48,6 +48,11 @@ public class Yahtzee extends DiceGame {
         System.out.println("Thank you for playing Yahtzee!");
     }
 
+    public String exit(){
+        walkAway();
+        return "Not a prompt";
+    }
+
 
     // getAllDice merges all rolledDice and savedDice into one ArrayList
     public ArrayList<Dice> getAllDice(ArrayList<Dice> rolledDice, ArrayList<Dice> savedDice) {
@@ -223,10 +228,6 @@ public class Yahtzee extends DiceGame {
         return this.yahtzeePlayer;
     }
 
-    public Scorecard getScoreCard() {
-        return scoreCard;
-    }
-
     public ArrayList<Dice> getSavedDice() {
         return this.savedDice;
     }
@@ -260,19 +261,19 @@ public class Yahtzee extends DiceGame {
 
 
 
-    public void roll() {
+    public String roll() {
         try {
             rolledDice = yahtzeePlayer.playerRollDice(5 - savedDice.size());
             console.println("\nRoll #%d", yahtzeePlayer.getRollNumber());
             console.println(getCurrentDiceString(rolledDice, savedDice));
-            input = console.getStringInput(allOptions());
+            return allOptions();
 
         } catch (YahtzeePlayer.TooManyRollsException tooManyRollsException) {
-            input = console.getStringInput("\nYou have already rolled 3 times.  Type 'mark' to mark your scorecard.");
+           return "\nYou have already rolled 3 times.  Type 'mark' to mark your scorecard.";
         }
     }
 
-    public void saveDice() {
+    public String saveDice() {
         input = console.getStringInput("Type the locations of the dice you want to save.\n" +
                 "(Ex: '123' to save first three dice)");
         try {
@@ -282,15 +283,15 @@ public class Yahtzee extends DiceGame {
             console.println("Dice saved.");
             console.println("\nRoll #%d", yahtzeePlayer.getRollNumber());
             console.println(getCurrentDiceString(rolledDice, savedDice));
-            input = console.getStringInput(allOptions());
+            return allOptions();
 
         } catch (IndexOutOfBoundsException i) {
-            input = console.getStringInput("Invalid input.  " + allOptions());
+           return"Invalid input.  " + allOptions();
         }
     }
 
 
-    public void returnDice() {
+    public String returnDice() {
         input = console.getStringInput("Type the locations of the dice you want to return.\n" +
                 "(Ex: '345' to return last three dice)");
         try {
@@ -300,35 +301,32 @@ public class Yahtzee extends DiceGame {
             console.println("Dice returned");
             console.println("\nRoll #%d", yahtzeePlayer.getRollNumber());
             console.println(getCurrentDiceString(rolledDice, savedDice));
-            input = console.getStringInput(allOptions());
+            return allOptions();
 
         } catch (ArrayIndexOutOfBoundsException aioobEx) {
-            input = console.getStringInput("Invalid input.  " + allOptions());
+            return"Invalid input.  " + allOptions();
         }
     }
 
-    public void showScorecard() {
+    public String showScorecard() {
         console.println(scoreCard.getScoreCardString());
-        input = console.getStringInput("Type 'back' to go back.  Type 'mark' to mark scorecard");
-        if (input.toLowerCase().equals("back")) {
-            console.println("\nRoll #%d", yahtzeePlayer.getRollNumber());
-            console.println(getCurrentDiceString(rolledDice, savedDice));
-            input = console.getStringInput(allOptions());
-        }
+        return "Type 'back' to go back.  Type 'mark' to mark scorecard";
     }
 
 
-    public void back() {
+    public String back() {
         console.println("\nRoll #%d", yahtzeePlayer.getRollNumber());
         console.println(getCurrentDiceString(rolledDice, savedDice));
-        input = console.getStringInput(allOptions());
+        return allOptions();
     }
 
 
-    public void markScore() {
+    public String markScore() {
         if (scoreCard.isValidCategory(input)) {
             if (scoreCard.getScorecard().get(input.toLowerCase()) != null) {
                 console.println("You already have a score for %s", input);
+                return "Not a prompt";
+
             } else {
                 scoreCard.markScoreCard(input.toLowerCase(), getAllDice(rolledDice, savedDice));
                 scoreCard.getScorecard().put("total score", scoreCard.getTotalScore());
@@ -337,21 +335,22 @@ public class Yahtzee extends DiceGame {
                 console.println(scoreCard.getScoreCardString());
                 yahtzeePlayer.setRollNumber(0);
 
-                checkScorecardComplete();
+                return checkScorecardComplete();
             }
         } else {
-            input = console.getStringInput("Invalid category. Enter 'mark' to try again.");
+            return "Invalid category. Enter 'mark' to try again.";
         }
     }
 
 
-    public void checkScorecardComplete() {
+    public String checkScorecardComplete() {
         if (scoreCard.scorecardComplete()) {
             console.println("Thank you for playing Yahtzee!  Your final score is %d.", scoreCard.getTotalScore());
             playing = false;
             input = "back";
+            return "Not a prompt";
         } else {
-            input = console.getStringInput("Type 'roll' to start your next turn.");
+            return"Type 'roll' to start your next turn.";
         }
     }
 
@@ -366,19 +365,22 @@ public class Yahtzee extends DiceGame {
     }
 
 
-    public void checkForBack(){
+    public String checkForBack(){
         input = console.getStringInput(categoryString());
         if (input.toLowerCase().equals("back")) {
-            back();
+            return back();
 
         } else {
-            markScore();
+           return markScore();
         }
     }
 
     public void playGame(){
         try {
-            YahtzeeAction.valueOf(input.toUpperCase()).perform(this);
+            String prompt = YahtzeeAction.valueOf(input.toUpperCase()).perform(this);
+            if(!prompt.equals("Not a prompt")) {
+                input = console.getStringInput(prompt);
+            }
         }catch(IllegalArgumentException iae) {
             invalidInputCheck();
         }
