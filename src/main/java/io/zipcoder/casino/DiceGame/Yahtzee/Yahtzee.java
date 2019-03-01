@@ -8,17 +8,13 @@ import io.zipcoder.casino.Utilities.DisplayGraphics;
 
 import java.util.*;
 
-import static io.zipcoder.casino.DiceGame.Yahtzee.YahtzeeScorecard.getScoreCardString;
 
 public class Yahtzee extends DiceGame {
     private YahtzeePlayer yahtzeePlayer;
     private int score;
 
-    public void setScoreCard(TreeMap<String, Integer> scoreCard) {
-        this.scoreCard = scoreCard;
-    }
+    public Scorecard scoreCard;
 
-    private static TreeMap<String, Integer> scoreCard;
     private ArrayList<Dice> savedDice;
     private ArrayList<Dice> rolledDice;
     private boolean playing = true;
@@ -29,7 +25,7 @@ public class Yahtzee extends DiceGame {
     public Yahtzee(Player player) {
         this.yahtzeePlayer = new YahtzeePlayer(player);
         this.score = 0;
-        this.scoreCard = YahtzeeScorecard.setUpScoreCard();
+        this.scoreCard = new Scorecard();
         this.savedDice = new ArrayList<>();
         this.rolledDice = new ArrayList<>();
     }
@@ -225,7 +221,7 @@ public class Yahtzee extends DiceGame {
         return this.yahtzeePlayer;
     }
 
-    public static TreeMap<String, Integer> getScoreCard() {
+    public Scorecard getScoreCard() {
         return scoreCard;
     }
 
@@ -366,7 +362,7 @@ public class Yahtzee extends DiceGame {
     }
 
     public void showScorecard() {
-        console.println(getScoreCardString());
+        console.println(scoreCard.getScoreCardString());
         input = console.getStringInput("Type 'back' to go back.  Type 'mark' to mark scorecard");
         if (input.toLowerCase().equals("back")) {
             console.println("\nRoll #%d", yahtzeePlayer.getRollNumber());
@@ -392,15 +388,15 @@ public class Yahtzee extends DiceGame {
 
 
     public void markScore() {
-        if (YahtzeeScorecard.isValidCategory(input)) {
-            if (scoreCard.get(input.toLowerCase()) != null) {
+        if (scoreCard.isValidCategory(input)) {
+            if (scoreCard.getScorecard().get(input.toLowerCase()) != null) {
                 console.println("You already have a score for %s", input);
             } else {
-                YahtzeeScorecard.markScoreCard(input.toLowerCase(), getAllDice(rolledDice, savedDice));
-                scoreCard.put("total score", YahtzeeScorecard.getTotalScore());
+                scoreCard.markScoreCard(input.toLowerCase(), getAllDice(rolledDice, savedDice));
+                scoreCard.getScorecard().put("total score", scoreCard.getTotalScore());
                 rolledDice.removeAll(rolledDice);
                 savedDice.removeAll(savedDice);
-                console.println(getScoreCardString());
+                console.println(scoreCard.getScoreCardString());
                 yahtzeePlayer.setRollNumber(0);
 
                 checkScorecardComplete();
@@ -412,8 +408,8 @@ public class Yahtzee extends DiceGame {
 
 
     public void checkScorecardComplete() {
-        if (YahtzeeScorecard.scorecardComplete()) {
-            console.println("Thank you for playing Yahtzee!  Your final score is %d.", YahtzeeScorecard.getTotalScore());
+        if (scoreCard.scorecardComplete()) {
+            console.println("Thank you for playing Yahtzee!  Your final score is %d.", scoreCard.getTotalScore());
             playing = false;
             input = "back";
         } else {
@@ -436,7 +432,6 @@ public class Yahtzee extends DiceGame {
         input = console.getStringInput(categoryString());
         if (input.toLowerCase().equals("back")) {
             back();
-
 
         } else {
             markScore();
