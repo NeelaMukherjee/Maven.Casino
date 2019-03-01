@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.TreeMap;
 
 import static io.zipcoder.casino.DiceGame.Yahtzee.YahtzeeDisplay.getCurrentDiceString;
@@ -34,8 +35,8 @@ public class YahtzeeTests {
         // When
         Yahtzee yahtzee = new Yahtzee(player);
         String actualYahtzeePlayerName = yahtzee.getYahtzeePlayer().getName();
-        ArrayList<Dice> actualSavedDice = yahtzee.getSavedDice();
-        ArrayList<Dice> actualRolledDice = yahtzee.getRolledDice();
+        List<Dice> actualSavedDice = yahtzee.getSavedDice();
+        List<Dice> actualRolledDice = yahtzee.getRolledDice();
         int actualScore = yahtzee.getScore();
 
         // Then
@@ -67,7 +68,7 @@ public class YahtzeeTests {
         expectedAllDice.add(d5);
 
         // When
-        ArrayList<Dice> actualAllDice = yahtzee.getAllDice(yahtzee.getRolledDice(), yahtzee.getSavedDice());
+        List<Dice> actualAllDice = yahtzee.getAllDice(yahtzee.getRolledDice(), yahtzee.getSavedDice());
 
         // Then
         Assert.assertEquals(expectedAllDice, actualAllDice);

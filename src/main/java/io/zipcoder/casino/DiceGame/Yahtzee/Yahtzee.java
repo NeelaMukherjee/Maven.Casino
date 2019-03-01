@@ -4,20 +4,16 @@ import io.zipcoder.casino.DiceGame.DiceUtils.Dice;
 import io.zipcoder.casino.DiceGame.DiceUtils.DiceGame;
 import io.zipcoder.casino.Utilities.Player;
 import io.zipcoder.casino.Utilities.Console;
-
 import java.util.*;
-
 import static io.zipcoder.casino.DiceGame.Yahtzee.YahtzeeDisplay.*;
 
 
 public class Yahtzee extends DiceGame {
     private YahtzeePlayer yahtzeePlayer;
     private int score;
-
     public Scorecard scoreCard;
-
-    private ArrayList<Dice> savedDice;
-    private ArrayList<Dice> rolledDice;
+    private List<Dice> savedDice;
+    private List<Dice> rolledDice;
     private boolean playing = true;
     Console console = Console.getInstance();
     String input = "";
@@ -42,11 +38,11 @@ public class Yahtzee extends DiceGame {
     }
 
 
-    // walkAway takes user back to the casino
     public void walkAway() {
         playing = false;
         System.out.println("Thank you for playing Yahtzee!");
     }
+
 
     public String exit(String input) {
         walkAway();
@@ -54,18 +50,15 @@ public class Yahtzee extends DiceGame {
     }
 
 
-    // getAllDice merges all rolledDice and savedDice into one ArrayList
-    public ArrayList<Dice> getAllDice(ArrayList<Dice> rolledDice, ArrayList<Dice> savedDice) {
-        ArrayList<Dice> allDice = rolledDice;
+    public List<Dice> getAllDice(List<Dice> rolledDice, List<Dice> savedDice) {
+       List<Dice> allDice = rolledDice;
         for (Dice die : savedDice) {
             allDice.add(die);
         }
         return allDice;
     }
 
-
-    // this method will get the score for the entered category based on the dice
-    public static Integer getScoreForCategory(String category, ArrayList<Dice> allDice) {
+    public static Integer getScoreForCategory(String category, List<Dice> allDice) {
         String categoryToScore = category.toUpperCase().replaceAll("\\s+", "");
 
         Integer value = YahtzeeCategory.valueOf(categoryToScore).getValue();
@@ -74,7 +67,8 @@ public class Yahtzee extends DiceGame {
         return score;
     }
 
-    public static int scoreUpperSection(ArrayList<Dice> allDice, int value) {
+
+    public static int scoreUpperSection(List<Dice> allDice, int value) {
         int score = 0;
         for (Dice die : allDice) {
             if (die.getValue() == value) {
@@ -85,7 +79,7 @@ public class Yahtzee extends DiceGame {
     }
 
 
-    public static boolean hasThreeOfAKind(ArrayList<Dice> allDice) {
+    public static boolean hasThreeOfAKind(List<Dice> allDice) {
         Integer[] diceCount = countDice(allDice);
         for (Integer dieCount : diceCount) {
             if (dieCount >= 3) {
@@ -95,7 +89,7 @@ public class Yahtzee extends DiceGame {
         return false;
     }
 
-    public static Integer scoreThreeOfAKind(ArrayList<Dice> allDice) {
+    public static Integer scoreThreeOfAKind(List<Dice> allDice) {
         if (hasThreeOfAKind(allDice)) {
             return getSumOfDice(allDice);
         }
@@ -103,7 +97,7 @@ public class Yahtzee extends DiceGame {
     }
 
 
-    public static boolean hasFourOfAKind(ArrayList<Dice> allDice) {
+    public static boolean hasFourOfAKind(List<Dice> allDice) {
         Integer[] diceCount = countDice(allDice);
         for (Integer dieCount : diceCount) {
             if (dieCount >= 4) {
@@ -114,7 +108,7 @@ public class Yahtzee extends DiceGame {
     }
 
 
-    public static int scoreFourOfAKind(ArrayList<Dice> allDice) {
+    public static int scoreFourOfAKind(List<Dice> allDice) {
         if (hasFourOfAKind(allDice)) {
             return getSumOfDice(allDice);
         }
@@ -122,7 +116,7 @@ public class Yahtzee extends DiceGame {
     }
 
 
-    public static boolean hasFullHouse(ArrayList<Dice> allDice) {
+    public static boolean hasFullHouse(List<Dice> allDice) {
         Integer[] diceCount = countDice(allDice);
         boolean hasTwoCount = false;
         boolean hasThreeCount = false;
@@ -139,7 +133,7 @@ public class Yahtzee extends DiceGame {
     }
 
 
-    public static int scoreFullHouse(ArrayList<Dice> allDice) {
+    public static int scoreFullHouse(List<Dice> allDice) {
         if (hasFullHouse(allDice)) {
             return 25;
         } else {
@@ -148,7 +142,7 @@ public class Yahtzee extends DiceGame {
     }
 
 
-    public static boolean hasSmallStraight(ArrayList<Dice> allDice) {
+    public static boolean hasSmallStraight(List<Dice> allDice) {
         Integer[] diceCount = countDice(allDice);
 
         if ((diceCount[0] >= 1) && (diceCount[1] >= 1) && (diceCount[2] >= 1) && (diceCount[3] >= 1)) {
@@ -165,7 +159,7 @@ public class Yahtzee extends DiceGame {
     }
 
 
-    public static int scoreSmallStraight(ArrayList<Dice> allDice) {
+    public static int scoreSmallStraight(List<Dice> allDice) {
         if (hasSmallStraight(allDice)) {
             return 30;
         } else {
@@ -174,7 +168,7 @@ public class Yahtzee extends DiceGame {
     }
 
 
-    public static boolean hasLargeStraight(ArrayList<Dice> allDice) {
+    public static boolean hasLargeStraight(List<Dice> allDice) {
         Integer[] diceCount = countDice(allDice);
 
         if ((diceCount[0] == 1) && (diceCount[1] == 1) && (diceCount[2] == 1) && (diceCount[3] == 1) && (diceCount[4] == 1)) {
@@ -188,7 +182,7 @@ public class Yahtzee extends DiceGame {
     }
 
 
-    public static int scoreLargeStraight(ArrayList<Dice> allDice) {
+    public static int scoreLargeStraight(List<Dice> allDice) {
         if (hasLargeStraight(allDice)) {
             return 40;
         } else {
@@ -197,7 +191,7 @@ public class Yahtzee extends DiceGame {
     }
 
 
-    public static boolean hasYahtzee(ArrayList<Dice> allDice) {
+    public static boolean hasYahtzee(List<Dice> allDice) {
         Integer[] diceCount = countDice(allDice);
 
         for (Integer dieCount : diceCount) {
@@ -209,7 +203,7 @@ public class Yahtzee extends DiceGame {
     }
 
 
-    public static int scoreYahtzee(ArrayList<Dice> allDice) {
+    public static int scoreYahtzee(List<Dice> allDice) {
         if (hasYahtzee(allDice)) {
             return 50;
         } else {
@@ -218,7 +212,7 @@ public class Yahtzee extends DiceGame {
     }
 
 
-    public static int scoreChance(ArrayList<Dice> allDice) {
+    public static int scoreChance(List<Dice> allDice) {
         return getSumOfDice(allDice);
     }
 
@@ -227,7 +221,7 @@ public class Yahtzee extends DiceGame {
         return this.yahtzeePlayer;
     }
 
-    public ArrayList<Dice> getSavedDice() {
+    public List<Dice> getSavedDice() {
         return this.savedDice;
     }
 
@@ -235,12 +229,12 @@ public class Yahtzee extends DiceGame {
         return score;
     }
 
-    public ArrayList<Dice> getRolledDice() {
+    public List<Dice> getRolledDice() {
         return rolledDice;
     }
 
 
-    public static Integer[] countDice(ArrayList<Dice> dice) {
+    public static Integer[] countDice(List<Dice> dice) {
         Integer[] diceCounter = {0, 0, 0, 0, 0, 0};
         for (Dice die : dice) {
             diceCounter[die.getValue() - 1]++;
@@ -249,7 +243,7 @@ public class Yahtzee extends DiceGame {
     }
 
 
-    public static int getSumOfDice(ArrayList<Dice> dice) {
+    public static int getSumOfDice(List<Dice> dice) {
         int sum = 0;
 
         for (Dice die : dice) {

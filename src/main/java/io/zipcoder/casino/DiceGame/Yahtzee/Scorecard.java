@@ -269,7 +269,7 @@ public class Scorecard {
 
 
 
-    public void markScoreCard(String category, ArrayList<Dice> dice) {
+    public void markScoreCard(String category, List<Dice> dice) {
         int score = Yahtzee.getScoreForCategory(category, dice);
         scorecard.put(category.toLowerCase(), score);
 

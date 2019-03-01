@@ -2,7 +2,7 @@ package io.zipcoder.casino.DiceGame.Yahtzee;
 
 import io.zipcoder.casino.DiceGame.DiceUtils.Dice;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class YahtzeeDisplay {
 
@@ -25,7 +25,7 @@ public class YahtzeeDisplay {
     }
 
 
-    public static String listOfDiceToDiceString(ArrayList<Dice> diceList) {
+    public static String listOfDiceToDiceString(List<Dice> diceList) {
         String diceString = "";
         for (Dice die : diceList) {
             if (die.getValue() == 1) {
@@ -45,7 +45,7 @@ public class YahtzeeDisplay {
         return diceString;
     }
 
-    public static String getCurrentDiceString(ArrayList<Dice> rolledDice, ArrayList<Dice> savedDice) {
+    public static String getCurrentDiceString(List<Dice> rolledDice, List<Dice> savedDice) {
         String currentDiceString = "";
         String spacerString = "\n|------------------------------------------|\n";
         String numberString = "|            |  1  |  2  |  3  |  4  |  5  |";
