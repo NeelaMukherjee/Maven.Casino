@@ -1,6 +1,6 @@
 package io.zipcoder.casino.DiceGame.Yahtzee;
 
-import java.util.function.Consumer;
+import java.util.function.Function;
 
 public enum YahtzeeAction {
 
@@ -9,18 +9,20 @@ public enum YahtzeeAction {
     RETURN(yahtzeeObject -> yahtzeeObject.returnDice()),
     SCORECARD(yahtzeeObject -> yahtzeeObject.showScorecard()),
     MARK(yahtzeeObject -> yahtzeeObject.checkForBack()),
-    EXIT(yahtzeeObject -> yahtzeeObject.walkAway());
+    BACK(yahtzeeObject -> yahtzeeObject.back()),
+    EXIT(yahtzeeObject -> yahtzeeObject.exit());
 
 
-    private final Consumer<Yahtzee> consumer;
+    private final Function<Yahtzee, String> function;
 
-    YahtzeeAction(Consumer<Yahtzee> consumer) {
-        this.consumer = consumer;
+    YahtzeeAction(Function<Yahtzee, String> function) {
+        this.function = function;
     }
 
 
-    public void perform(Yahtzee yahtzeeObject) {
-        consumer.accept(yahtzeeObject);
+    public String perform(Yahtzee yahtzeeObject) {
+        return function.apply(yahtzeeObject);
+
     }
 
 }

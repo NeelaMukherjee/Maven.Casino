@@ -73,7 +73,7 @@ public class Casino {
 
                 case "exit":
                     running = false;
-                    console.println("Bye %s!  Thank you for playing at the Zip Code GoFish!", name);
+                    console.println("Bye %s!  Thank you for playing at the Zip Code Casino!", name);
                     break;
 
                 default:
