@@ -288,7 +288,7 @@ public class Yahtzee extends DiceGame {
             console.println(getCurrentDiceString(rolledDice, savedDice));
             return allOptions();
 
-        } catch (ArrayIndexOutOfBoundsException aioobEx) {
+        } catch (IndexOutOfBoundsException ioobEx) {
             return "Invalid input.  " + allOptions();
         }
     }
@@ -346,13 +346,12 @@ public class Yahtzee extends DiceGame {
     }
 
 
-    public void invalidInputCheck() {
+    public String invalidInputCheck() {
         if (!(input.toLowerCase().equals("roll") || input.toLowerCase().equals("save") || input.toLowerCase().equals("return") ||
                 input.toLowerCase().equals("scorecard") || input.toLowerCase().equals("mark") || input.toLowerCase().equals("back")
                 || input.toLowerCase().equals("exit"))) {
-
-            input = console.getStringInput("Invalid input.  " + allOptions());
         }
+        return "Invalid input.  " + allOptions();
     }
 
 
@@ -396,7 +395,23 @@ public class Yahtzee extends DiceGame {
                 input = console.getStringInput(prompt);
             }
         } catch (IllegalArgumentException iae) {
-            invalidInputCheck();
+            input = console.getStringInput(invalidInputCheck());
         }
+    }
+
+    public void setPlaying(boolean playing) {
+        this.playing = playing;
+    }
+
+    public boolean getPlaying() {
+        return playing;
+    }
+
+    public void setInput2(String input) {
+        this.input2 = input;
+    }
+
+    public void setInput(String input) {
+        this.input = input;
     }
 }

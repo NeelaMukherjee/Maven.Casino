@@ -25,10 +25,10 @@ public class Scorecard {
     }
 
 
-    public Collection<String> getAllCategories() {
-        Collection<String> allCategories = new ArrayList<>();
-        ((ArrayList<String>) allCategories).addAll(getUpperSectionCategories());
-        ((ArrayList<String>) allCategories).addAll(getLowerSectionCategories());
+    public List<String> getAllCategories() {
+        List<String> allCategories = new ArrayList<>();
+        allCategories.addAll(getUpperSectionCategories());
+        allCategories.addAll(getLowerSectionCategories());
 
         return allCategories;
     }
@@ -169,8 +169,8 @@ public class Scorecard {
     }
 
 
-    public  Collection<String> getUpperSectionCategories(){
-        Collection<String> upperSectionCategories = new ArrayList<>();
+    public  List<String> getUpperSectionCategories(){
+        List<String> upperSectionCategories = new ArrayList<>();
         upperSectionCategories.add("aces");
         upperSectionCategories.add("twos");
         upperSectionCategories.add("threes");
@@ -181,8 +181,8 @@ public class Scorecard {
         return upperSectionCategories;
     }
 
-    public Collection<String> getLowerSectionCategories(){
-        Collection<String> lowerSectionCategories = new ArrayList<>();
+    public List<String> getLowerSectionCategories(){
+        List<String> lowerSectionCategories = new ArrayList<>();
         lowerSectionCategories.add("three of a kind");
         lowerSectionCategories.add("four of a kind");
         lowerSectionCategories.add("full house");
