@@ -2,10 +2,9 @@ package io.zipcoder.casino.DiceGame.Yahtzee;
 
 import io.zipcoder.casino.DiceGame.DiceUtils.Dice;
 import io.zipcoder.casino.Utilities.Player;
-
-
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class YahtzeePlayer {
@@ -36,7 +35,7 @@ public class YahtzeePlayer {
     }
 
 
-    public ArrayList<Dice> saveDice(ArrayList<Dice> rolledDice, String diceToSaveInput) {
+    public ArrayList<Dice> saveDice(List<Dice> rolledDice, String diceToSaveInput) {
         ArrayList<Dice> savedDice = new ArrayList<>();
         diceToSaveInput = removeDuplicateCharacters(diceToSaveInput);
         for (int i = 0; i < diceToSaveInput.length(); i++) {
@@ -49,7 +48,7 @@ public class YahtzeePlayer {
     }
 
 
-    public ArrayList<Dice> returnDice(ArrayList<Dice> savedDice, String diceToReturnInput) {
+    public ArrayList<Dice> returnDice(List<Dice> savedDice, String diceToReturnInput) {
         diceToReturnInput = removeDuplicateCharacters(diceToReturnInput);
         ArrayList<Dice> returnedDice = new ArrayList<>();
         for (int i = 0; i < diceToReturnInput.length(); i++){
@@ -61,7 +60,7 @@ public class YahtzeePlayer {
     }
 
 
-    public void removeSameDice(ArrayList<Dice> diceListToRemoveFrom, ArrayList<Dice> diceList){
+    public void removeSameDice(List<Dice> diceListToRemoveFrom, ArrayList<Dice> diceList){
        diceListToRemoveFrom.removeAll(diceList);
     }
 

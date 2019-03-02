@@ -3,6 +3,7 @@ package io.zipcoder.casino.DiceGame.Yahtzee;
 import io.zipcoder.casino.DiceGame.DiceUtils.Dice;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.BiFunction;
 
 public enum YahtzeeCategory {
@@ -23,17 +24,17 @@ public enum YahtzeeCategory {
 
 
 
-    private final BiFunction<ArrayList<Dice>, Integer, Integer> bifunction;
+    private final BiFunction<List<Dice>, Integer, Integer> bifunction;
     private final int value;
 
 
-    YahtzeeCategory(Integer value, BiFunction<ArrayList<Dice>, Integer, Integer> bifunction) {
+    YahtzeeCategory(Integer value, BiFunction<List<Dice>, Integer, Integer> bifunction) {
         this.value = value;
         this.bifunction = bifunction;
     }
 
 
-    public Integer perform(ArrayList<Dice> allDice, Integer value) {
+    public Integer perform(List<Dice> allDice, Integer value) {
       return bifunction.apply(allDice, value);
     }
 
