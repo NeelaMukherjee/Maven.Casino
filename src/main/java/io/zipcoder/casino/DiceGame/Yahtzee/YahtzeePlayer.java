@@ -82,11 +82,9 @@ public class YahtzeePlayer {
         return inputWithoutDuplicates;
     }
 
-
     public String getName() {
         return this.name;
     }
-
 
     public Player getPlayer() {
         return this.player;

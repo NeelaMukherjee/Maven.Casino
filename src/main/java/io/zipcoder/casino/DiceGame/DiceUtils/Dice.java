@@ -1,6 +1,5 @@
 package io.zipcoder.casino.DiceGame.DiceUtils;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Dice {

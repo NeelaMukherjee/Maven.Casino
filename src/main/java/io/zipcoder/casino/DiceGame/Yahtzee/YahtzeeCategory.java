@@ -1,8 +1,6 @@
 package io.zipcoder.casino.DiceGame.Yahtzee;
 
 import io.zipcoder.casino.DiceGame.DiceUtils.Dice;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;
 
@@ -23,7 +21,6 @@ public enum YahtzeeCategory {
     CHANCE(0, (allDice, value) -> Yahtzee.scoreChance(allDice));
 
 
-
     private final BiFunction<List<Dice>, Integer, Integer> bifunction;
     private final int value;
 
@@ -32,7 +29,6 @@ public enum YahtzeeCategory {
         this.value = value;
         this.bifunction = bifunction;
     }
-
 
     public Integer perform(List<Dice> allDice, Integer value) {
       return bifunction.apply(allDice, value);

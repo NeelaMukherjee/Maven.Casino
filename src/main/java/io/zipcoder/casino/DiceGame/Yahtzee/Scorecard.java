@@ -1,7 +1,6 @@
 package io.zipcoder.casino.DiceGame.Yahtzee;
 
 import io.zipcoder.casino.DiceGame.DiceUtils.Dice;
-
 import java.util.*;
 
 public class Scorecard {
@@ -34,137 +33,39 @@ public class Scorecard {
     }
 
 
-    public String getAcesScoreString() {
-        if (scorecard.get("aces") == null) {
-            return "   Aces            |\n";
-        } else {
-            return "   Aces            |    " + scorecard.get("aces") + "\n";
+    public String capitalizeFirstLetters(String string){
+        String answer = "";
+        string = string.toLowerCase();
+        string = string.substring(0, 1).toUpperCase() + string.substring(1);
+        String[] stringArray = string.split("");
+        for(int i = 1; i < stringArray.length; i++){
+            if(stringArray[i - 1].equals(" ")){
+                stringArray[i] = stringArray[i].toUpperCase();
+            }
+            answer += stringArray[i];
         }
+        answer = stringArray[0] + answer;
+        return answer;
+    }
+
+    public String padString(String string) {
+        String paddedString = "   " + string;
+        int rightPadding = 16 - string.length();
+        for (int i = 0; i < rightPadding; i++) {
+            paddedString += " ";
+        }
+        return paddedString;
     }
 
 
-    public String getTwosScoreString() {
-        if (scorecard.get("twos") == null) {
-            return "   Twos            |\n";
-        } else {
-            return "   Twos            |    " + scorecard.get("twos") + "\n";
+
+    public String getScoreString(String category){
+        if(scorecard.get(category) == null){
+            return padString(capitalizeFirstLetters(category)) + "|\n";
         }
-    }
-
-
-    public String getThreesScoreString() {
-        if (scorecard.get("threes") == null) {
-            return "   Threes          |\n";
-        } else {
-            return "   Threes          |    " + scorecard.get("threes") + "\n";
-        }
-    }
-
-
-    public String getFoursScoreString() {
-        if (scorecard.get("fours") == null) {
-            return "   Fours           |\n";
-        } else {
-            return "   Fours           |    " + scorecard.get("fours") + "\n";
-        }
-    }
-
-
-    public String getFivesScoreString() {
-        if (scorecard.get("fives") == null) {
-            return "   Fives           |\n";
-        } else {
-            return "   Fives           |    " + scorecard.get("fives") + "\n";
-        }
-    }
-
-
-    public String getSixesScoreString() {
-        if (scorecard.get("sixes") == null) {
-            return "   Sixes           |\n";
-        } else {
-            return "   Sixes           |    " + scorecard.get("sixes") + "\n";
-        }
-    }
-
-
-    public String getThreeOfAKindScoreString() {
-        if (scorecard.get("three of a kind") == null) {
-            return "   3 of a Kind     |\n";
-        } else {
-            return "   3 of a Kind     |    " + scorecard.get("three of a kind" +
-                    "") + "\n";
-        }
-    }
-
-    public  String getFourOfAKindScoreString() {
-        if (scorecard.get("four of a kind") == null) {
-            return "   4 of a Kind     |\n";
-        } else {
-            return "   4 of a Kind     |    " + scorecard.get("four of a kind") + "\n";
-        }
-    }
-
-
-    public String getFullHouseScoreString() {
-        if (scorecard.get("full house") == null) {
-            return "   Full House      |\n";
-        } else {
-            return "   Full House      |    " + scorecard.get("full house") + "\n";
-        }
-    }
-
-
-    public String getSmallStraightScoreString() {
-        if (scorecard.get("small straight") == null) {
-            return "   Small Straight  |\n";
-        } else {
-            return "   Small Straight  |    " + scorecard.get("small straight") + "\n";
-        }
-    }
-
-
-    public String getLargeStraightScoreString() {
-        if (scorecard.get("large straight") == null) {
-            return "   Large Straight  |\n";
-        } else {
-            return "   Large Straight  |    " + scorecard.get("large straight") + "\n";
-        }
-    }
-
-
-    public String getYahtzeeScoreString() {
-        if (scorecard.get("yahtzee") == null) {
-            return "   Yahtzee         |\n";
-        } else {
-            return "   Yahtzee         |    " + scorecard.get("yahtzee") + "\n";
-        }
-    }
-
-
-    public String getChanceScoreString() {
-        if (scorecard.get("chance") == null) {
-            return "   Chance          |\n";
-        } else {
-            return "   Chance          |    " + scorecard.get("chance") + "\n";
-        }
-    }
-
-
-    public String getUpperBonusScoreString() {
-        if (scorecard.get("upper bonus") == null) {
-            return "   Upper Bonus     |\n";
-        } else {
-            return "   Upper Bonus     |    " + scorecard.get("upper bonus") + "\n";
-        }
-    }
-
-
-    public String getTotalScoreString() {
-        if (scorecard.get("total score") == null) {
-            return "   Total Score     |\n";
-        } else {
-            return "   Total Score     |    " + scorecard.get("total score") + "\n";
+        else{
+            return  padString(capitalizeFirstLetters(category)) + "|    "
+                    + scorecard.get(category.toLowerCase()) + "\n";
         }
     }
 
@@ -191,6 +92,16 @@ public class Scorecard {
         lowerSectionCategories.add("yahtzee");
         lowerSectionCategories.add("chance");
         return lowerSectionCategories;
+    }
+
+    public List<String> getAllScorecardLines(){
+        List<String> allScorecardLines = new ArrayList<>();
+        allScorecardLines.addAll(getUpperSectionCategories());
+        allScorecardLines.add("upper bonus");
+        allScorecardLines.addAll(getLowerSectionCategories());
+        allScorecardLines.add("total score");
+
+        return allScorecardLines;
     }
 
 
@@ -225,7 +136,6 @@ public class Scorecard {
                 return true;
             }
         }
-
         return false;
     }
 
@@ -262,13 +172,6 @@ public class Scorecard {
         return lowerTotal;
     }
 
-
-    public int getTotalScore() {
-        return getLowerSectionTotal() + getUpperSectionTotal() + upperSectionBonus();
-    }
-
-
-
     public void markScoreCard(String category, List<Dice> dice) {
         int score = Yahtzee.getScoreForCategory(category, dice);
         scorecard.put(category.toLowerCase(), score);
@@ -283,28 +186,19 @@ public class Scorecard {
         String scoreCardString = "";
         String spacerString = "|---------------------------------|\n";
         String categoryString = "  Category         |  Score        \n";
-        scoreCardString = scoreCardString + spacerString +
-                categoryString + spacerString +
-                getAcesScoreString() + spacerString +
-                getTwosScoreString() + spacerString +
-                getThreesScoreString() + spacerString +
-                getFoursScoreString() + spacerString +
-                getFivesScoreString() + spacerString +
-                getSixesScoreString() + spacerString +
-                getUpperBonusScoreString() + spacerString +
-                getThreeOfAKindScoreString() + spacerString +
-                getFourOfAKindScoreString() + spacerString +
-                getFullHouseScoreString() + spacerString +
-                getSmallStraightScoreString() + spacerString +
-                getLargeStraightScoreString() + spacerString +
-                getYahtzeeScoreString() + spacerString +
-                getChanceScoreString() + spacerString +
-                getTotalScoreString() + spacerString;
-
+        scoreCardString = spacerString +categoryString + spacerString;
+        for(String s : getAllScorecardLines()){
+            scoreCardString += getScoreString(s) + spacerString;
+        }
         return scoreCardString;
     }
 
     public Map<String, Integer> getScorecard() {
         return scorecard;
     }
+
+    public int getTotalScore() {
+        return getLowerSectionTotal() + getUpperSectionTotal() + upperSectionBonus();
+    }
+
 }

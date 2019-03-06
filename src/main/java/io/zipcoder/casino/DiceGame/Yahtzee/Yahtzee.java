@@ -4,7 +4,11 @@ import io.zipcoder.casino.DiceGame.DiceUtils.Dice;
 import io.zipcoder.casino.DiceGame.DiceUtils.DiceGame;
 import io.zipcoder.casino.Utilities.Player;
 import io.zipcoder.casino.Utilities.Console;
+
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import static io.zipcoder.casino.DiceGame.Yahtzee.YahtzeeDisplay.*;
 
 
@@ -51,11 +55,12 @@ public class Yahtzee extends DiceGame {
 
 
     public List<Dice> getAllDice(List<Dice> rolledDice, List<Dice> savedDice) {
-       List<Dice> allDice = rolledDice;
-        for (Dice die : savedDice) {
-            allDice.add(die);
-        }
-        return allDice;
+
+        Stream<Dice> rolledDiceStream = rolledDice.stream();
+        Stream<Dice> savedDiceStream = savedDice.stream();
+        Stream<Dice> allDiceStream = Stream.concat(rolledDiceStream, savedDiceStream);
+
+        return allDiceStream.collect(Collectors.toList());
     }
 
     public static Integer getScoreForCategory(String category, List<Dice> allDice) {
@@ -70,6 +75,7 @@ public class Yahtzee extends DiceGame {
 
     public static int scoreUpperSection(List<Dice> allDice, int value) {
         int score = 0;
+
         for (Dice die : allDice) {
             if (die.getValue() == value) {
                 score += value;
@@ -145,17 +151,12 @@ public class Yahtzee extends DiceGame {
     public static boolean hasSmallStraight(List<Dice> allDice) {
         Integer[] diceCount = countDice(allDice);
 
-        if ((diceCount[0] >= 1) && (diceCount[1] >= 1) && (diceCount[2] >= 1) && (diceCount[3] >= 1)) {
+        if (((diceCount[0] >= 1) && (diceCount[1] >= 1) && (diceCount[2] >= 1) && (diceCount[3] >= 1)) ||
+                ((diceCount[1] >= 1) && (diceCount[2] >= 1) && (diceCount[3] >= 1) && (diceCount[4] >= 1)) ||
+                ((diceCount[2] >= 1) && (diceCount[3] >= 1) && (diceCount[4] >= 1) && (diceCount[5] >= 1))) {
             return true;
         }
-        if ((diceCount[1] >= 1) && (diceCount[2] >= 1) && (diceCount[3] >= 1) && (diceCount[4] >= 1)) {
-            return true;
-        }
-        if ((diceCount[2] >= 1) && (diceCount[3] >= 1) && (diceCount[4] >= 1) && (diceCount[5] >= 1)) {
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 
 
@@ -171,14 +172,11 @@ public class Yahtzee extends DiceGame {
     public static boolean hasLargeStraight(List<Dice> allDice) {
         Integer[] diceCount = countDice(allDice);
 
-        if ((diceCount[0] == 1) && (diceCount[1] == 1) && (diceCount[2] == 1) && (diceCount[3] == 1) && (diceCount[4] == 1)) {
+        if (((diceCount[0] == 1) && (diceCount[1] == 1) && (diceCount[2] == 1) && (diceCount[3] == 1) && (diceCount[4] == 1)) ||
+                ((diceCount[1] == 1) && (diceCount[2] == 1) && (diceCount[3] == 1) && (diceCount[4] == 1) && (diceCount[5] == 1))) {
             return true;
         }
-        if ((diceCount[1] == 1) && (diceCount[2] == 1) && (diceCount[3] == 1) && (diceCount[4] == 1) && (diceCount[5] == 1)) {
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 
 
@@ -206,33 +204,13 @@ public class Yahtzee extends DiceGame {
     public static int scoreYahtzee(List<Dice> allDice) {
         if (hasYahtzee(allDice)) {
             return 50;
-        } else {
-            return 0;
         }
+        return 0;
     }
-
 
     public static int scoreChance(List<Dice> allDice) {
         return getSumOfDice(allDice);
     }
-
-
-    public YahtzeePlayer getYahtzeePlayer() {
-        return this.yahtzeePlayer;
-    }
-
-    public List<Dice> getSavedDice() {
-        return this.savedDice;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public List<Dice> getRolledDice() {
-        return rolledDice;
-    }
-
 
     public static Integer[] countDice(List<Dice> dice) {
         Integer[] diceCounter = {0, 0, 0, 0, 0, 0};
@@ -283,11 +261,8 @@ public class Yahtzee extends DiceGame {
             for (Dice die : yahtzeePlayer.returnDice(savedDice, diceToReturn)) {
                 rolledDice.add(die);
             }
-            console.println("Dice returned");
-            console.println("\nRoll #%d", yahtzeePlayer.getRollNumber());
-            console.println(getCurrentDiceString(rolledDice, savedDice));
+            console.println("Dice returned.\n\nRoll #%d\n" + getCurrentDiceString(rolledDice, savedDice), yahtzeePlayer.getRollNumber());
             return allOptions();
-
         } catch (IndexOutOfBoundsException ioobEx) {
             return "Invalid input.  " + allOptions();
         }
@@ -328,7 +303,7 @@ public class Yahtzee extends DiceGame {
     }
 
 
-    public void resetDice(){
+    public void resetDice() {
         rolledDice.removeAll(rolledDice);
         savedDice.removeAll(savedDice);
         yahtzeePlayer.setRollNumber(0);
@@ -340,9 +315,8 @@ public class Yahtzee extends DiceGame {
             console.println("Thank you for playing Yahtzee!  Your final score is %d.", scoreCard.getTotalScore());
             playing = false;
             return "Not a prompt";
-        } else {
-            return "Type 'roll' to start your next turn.";
         }
+        return "Type 'roll' to start your next turn.";
     }
 
 
@@ -384,11 +358,15 @@ public class Yahtzee extends DiceGame {
         }
     }
 
+    public void getAllPrompts(){
+        getSaveDicePrompt();
+        getReturnDicePrompt();
+        getMarkPrompt();
+    }
+
     public void playGame() {
         try {
-            getSaveDicePrompt();
-            getReturnDicePrompt();
-            getMarkPrompt();
+            getAllPrompts();
 
             String prompt = YahtzeeAction.valueOf(input.toUpperCase()).perform(this, input2);
             if (!prompt.equals("Not a prompt")) {
@@ -399,12 +377,25 @@ public class Yahtzee extends DiceGame {
         }
     }
 
-    public void setPlaying(boolean playing) {
-        this.playing = playing;
-    }
 
     public boolean getPlaying() {
         return playing;
+    }
+
+    public List<Dice> getSavedDice() {
+        return this.savedDice;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public List<Dice> getRolledDice() {
+        return rolledDice;
+    }
+
+    public YahtzeePlayer getYahtzeePlayer() {
+        return this.yahtzeePlayer;
     }
 
     public void setInput2(String input) {
@@ -413,5 +404,9 @@ public class Yahtzee extends DiceGame {
 
     public void setInput(String input) {
         this.input = input;
+    }
+
+    public void setPlaying(boolean playing) {
+        this.playing = playing;
     }
 }

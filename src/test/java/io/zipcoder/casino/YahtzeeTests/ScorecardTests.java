@@ -76,10 +76,10 @@ public class ScorecardTests {
         String expected2 = "   Aces            |    3\n";
 
         // When
-        String actual1 = scorecard.getAcesScoreString();
+        String actual1 = scorecard.getScoreString("aces");
 
         scorecard.getScorecard().put("aces", 3);
-        String actual2 = scorecard.getAcesScoreString();
+        String actual2 = scorecard.getScoreString("aces");
 
         // Then
         Assert.assertEquals(expected1, actual1);
@@ -94,10 +94,10 @@ public class ScorecardTests {
         String expected2 = "   Twos            |    8\n";
 
         // When
-        String actual1 = scorecard.getTwosScoreString();
+        String actual1 = scorecard.getScoreString("twos");
 
         scorecard.getScorecard().put("twos", 8);
-        String actual2 = scorecard.getTwosScoreString();
+        String actual2 = scorecard.getScoreString("twos");
 
         // Then
         Assert.assertEquals(expected1, actual1);
@@ -112,10 +112,10 @@ public class ScorecardTests {
         String expected2 = "   Threes          |    12\n";
 
         // When
-        String actual1 = scorecard.getThreesScoreString();
+        String actual1 = scorecard.getScoreString("threes");
 
         scorecard.getScorecard().put("threes", 12);
-        String actual2 = scorecard.getThreesScoreString();
+        String actual2 = scorecard.getScoreString("threes");
 
         // Then
         Assert.assertEquals(expected1, actual1);
@@ -130,10 +130,10 @@ public class ScorecardTests {
         String expected2 = "   Fours           |    8\n";
 
         // When
-        String actual1 = scorecard.getFoursScoreString();
+        String actual1 = scorecard.getScoreString("fours");
 
         scorecard.getScorecard().put("fours", 8);
-        String actual2 = scorecard.getFoursScoreString();
+        String actual2 = scorecard.getScoreString("fours");
 
         // Then
         Assert.assertEquals(expected1, actual1);
@@ -148,10 +148,10 @@ public class ScorecardTests {
         String expected2 = "   Fives           |    0\n";
 
         // When
-        String actual1 = scorecard.getFivesScoreString();
+        String actual1 = scorecard.getScoreString("fives");
 
         scorecard.getScorecard().put("fives", 0);
-        String actual2 = scorecard.getFivesScoreString();
+        String actual2 = scorecard.getScoreString("fives");
 
         // Then
         Assert.assertEquals(expected1, actual1);
@@ -166,10 +166,10 @@ public class ScorecardTests {
         String expected2 = "   Sixes           |    24\n";
 
         // When
-        String actual1 = scorecard.getSixesScoreString();
+        String actual1 = scorecard.getScoreString("sixes");
 
         scorecard.getScorecard().put("sixes", 24);
-        String actual2 = scorecard.getSixesScoreString();
+        String actual2 = scorecard.getScoreString("sixes");
 
         // Then
         Assert.assertEquals(expected1, actual1);
@@ -185,10 +185,10 @@ public class ScorecardTests {
         String expected2 = "   Upper Bonus     |    35\n";
 
         // When
-        String actual1 = scorecard.getUpperBonusScoreString();
+        String actual1 = scorecard.getScoreString("upper bonus");
 
         scorecard.getScorecard().put("upper bonus", 35);
-        String actual2 = scorecard.getUpperBonusScoreString();
+        String actual2 = scorecard.getScoreString("upper bonus");
 
         // Then
         Assert.assertEquals(expected1, actual1);
@@ -200,14 +200,14 @@ public class ScorecardTests {
     public void getThreeOfAKindScoreStringTest() {
         // Given
         Scorecard scorecard = new Scorecard();
-        String expected1 = "   3 of a Kind     |\n";
-        String expected2 = "   3 of a Kind     |    22\n";
+        String expected1 = "   Three Of A Kind |\n";
+        String expected2 = "   Three Of A Kind |    22\n";
 
         // When
-        String actual1 = scorecard.getThreeOfAKindScoreString();
+        String actual1 = scorecard.getScoreString("three of a kind");
 
         scorecard.getScorecard().put("three of a kind", 22);
-        String actual2 = scorecard.getThreeOfAKindScoreString();
+        String actual2 = scorecard.getScoreString("three of a kind");
 
         // Then
         Assert.assertEquals(expected1, actual1);
@@ -219,14 +219,14 @@ public class ScorecardTests {
     public void getFourOfAKindScoreStringTest() {
         // Given
         Scorecard scorecard = new Scorecard();
-        String expected1 = "   4 of a Kind     |\n";
-        String expected2 = "   4 of a Kind     |    20\n";
+        String expected1 = "   Four Of A Kind  |\n";
+        String expected2 = "   Four Of A Kind  |    20\n";
 
         // When
-        String actual1 = scorecard.getFourOfAKindScoreString();
+        String actual1 = scorecard.getScoreString("four of a kind");
 
         scorecard.getScorecard().put("four of a kind", 20);
-        String actual2 = scorecard.getFourOfAKindScoreString();
+        String actual2 = scorecard.getScoreString("four of a kind");
 
         // Then
         Assert.assertEquals(expected1, actual1);
@@ -241,10 +241,10 @@ public class ScorecardTests {
         String expected2 = "   Full House      |    25\n";
 
         // When
-        String actual1 = scorecard.getFullHouseScoreString();
+        String actual1 = scorecard.getScoreString("full house");
 
         scorecard.getScorecard().put("full house", 25);
-        String actual2 = scorecard.getFullHouseScoreString();
+        String actual2 = scorecard.getScoreString("full house");
 
         // Then
         Assert.assertEquals(expected1, actual1);
@@ -259,10 +259,10 @@ public class ScorecardTests {
         String expected2 = "   Small Straight  |    30\n";
 
         // When
-        String actual1 = scorecard.getSmallStraightScoreString();
+        String actual1 = scorecard.getScoreString("small straight");
 
         scorecard.getScorecard().put("small straight", 30);
-        String actual2 = scorecard.getSmallStraightScoreString();
+        String actual2 = scorecard.getScoreString("small straight");
 
         // Then
         Assert.assertEquals(expected1, actual1);
@@ -277,10 +277,10 @@ public class ScorecardTests {
         String expected2 = "   Large Straight  |    40\n";
 
         // When
-        String actual1 = scorecard.getLargeStraightScoreString();
+        String actual1 = scorecard.getScoreString("large straight");
 
         scorecard.getScorecard().put("large straight", 40);
-        String actual2 = scorecard.getLargeStraightScoreString();
+        String actual2 = scorecard.getScoreString("large straight");
 
         // Then
         Assert.assertEquals(expected1, actual1);
@@ -295,10 +295,10 @@ public class ScorecardTests {
         String expected2 = "   Yahtzee         |    50\n";
 
         // When
-        String actual1 = scorecard.getYahtzeeScoreString();
+        String actual1 = scorecard.getScoreString("yahtzee");
 
         scorecard.getScorecard().put("yahtzee", 50);
-        String actual2 = scorecard.getYahtzeeScoreString();
+        String actual2 = scorecard.getScoreString("yahtzee");
 
         // Then
         Assert.assertEquals(expected1, actual1);
@@ -314,10 +314,10 @@ public class ScorecardTests {
         String expected2 = "   Chance          |    23\n";
 
         // When
-        String actual1 = scorecard.getChanceScoreString();
+        String actual1 = scorecard.getScoreString("chance");
 
         scorecard.getScorecard().put("chance", 23);
-        String actual2 = scorecard.getChanceScoreString();
+        String actual2 = scorecard.getScoreString("chance");
 
         // Then
         Assert.assertEquals(expected1, actual1);
@@ -332,10 +332,10 @@ public class ScorecardTests {
         String expected2 = "   Total Score     |    200\n";
 
         // When
-        String actual1 = scorecard.getTotalScoreString();
+        String actual1 = scorecard.getScoreString("total score");
 
         scorecard.getScorecard().put("total score", 200);
-        String actual2 = scorecard.getTotalScoreString();
+        String actual2 = scorecard.getScoreString("total score");
 
         // Then
         Assert.assertEquals(expected1, actual1);
@@ -794,9 +794,9 @@ public class ScorecardTests {
                 "|---------------------------------|\n" +
                 "   Upper Bonus     |\n" +
                 "|---------------------------------|\n" +
-                "   3 of a Kind     |\n" +
+                "   Three Of A Kind |\n" +
                 "|---------------------------------|\n" +
-                "   4 of a Kind     |\n" +
+                "   Four Of A Kind  |\n" +
                 "|---------------------------------|\n" +
                 "   Full House      |\n" +
                 "|---------------------------------|\n" +
