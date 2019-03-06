@@ -4,9 +4,7 @@ import java.util.function.BiFunction;
 
 public enum YahtzeeAction {
 
-    ROLL((yahtzeeObject, input) -> {
-        return yahtzeeObject.roll(input);
-    }),
+    ROLL((yahtzeeObject, input) -> yahtzeeObject.roll(input)),
     SAVE((yahtzeeObject, input) -> yahtzeeObject.saveDice(input)),
     RETURN((yahtzeeObject, input) -> yahtzeeObject.returnDice(input)),
     SCORECARD((yahtzeeObject, input) -> yahtzeeObject.showScorecard(input)),
@@ -19,13 +17,10 @@ public enum YahtzeeAction {
 
     YahtzeeAction(BiFunction<Yahtzee, String, String> bifunction) {
         this.bifunction = bifunction;
-        
     }
-
 
     public String perform(Yahtzee yahtzeeObject, String input) {
         return bifunction.apply(yahtzeeObject, input);
-        
 
     }
 
